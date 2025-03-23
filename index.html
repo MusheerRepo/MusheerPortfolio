@@ -1,339 +1,359 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Awesome Portfolio - Musheer!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f4f8;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden; /* Hide scrollbars while keeping content */
-            background: linear-gradient(135deg, #f0f4f8 0%, #d1d8e0 100%);
-            color: #333;
-        }
-
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 80%; /* Adjust as needed */
-            max-width: 800px;
-            text-align: center;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        h1 {
-            color: #4a90e2;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 16px;
-            transition: border-color 0.3s ease-in-out;
-        }
-
-        input[type="text"]:focus {
-            border-color: #4a90e2;
-            outline: none;
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
-        }
-
-        button {
-            background-color: #4a90e2;
-            color: white;
-            padding: 14px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        button:hover {
-            background-color: #357ab6;
-            transform: scale(1.05);
-        }
-
-        button:active {
-            background-color: #2a639a;
-            transform: scale(0.98);
-        }
-
-        #loading-indicator {
-            display: none;
-            margin-top: 20px;
-            font-style: italic;
-            color: #888;
-        }
-
-        /* Add more animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Particles effect */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1; /* Behind all content */
-        }
-
-        /* Floating Elements */
-        .floating-element {
-            position: absolute;
-            background-color: rgba(74, 144, 226, 0.1);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: floatAnimation 5s infinite alternate; /* Added animation */
-        }
-
-        @keyframes floatAnimation {
-            0% {
-                transform: translateY(0);
-                opacity: 0.8;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Awesome Portfolio - Musheer!</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f0f4f8;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                overflow: hidden; /* Hide scrollbars while keeping content */
+                background: linear-gradient(135deg, #f0f4f8 0%, #d1d8e0 100%);
+                color: #333;
             }
-            100% {
-                transform: translateY(-20px); /* Adjust the floating distance */
-                opacity: 0;
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                width: 80%; /* Adjust as needed */
+                max-width: 800px;
+                text-align: center;
+                transition:
+                    transform 0.3s ease-in-out,
+                    box-shadow 0.3s ease-in-out;
             }
-        }
-    </style>
-</head>
-<body>
 
-    <div id="particles-js"></div>  <!--  Particles.js background -->
+            .container:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            }
 
-    <div class="container animate__animated animate__fadeIn">
-        <h1>Musheer Portfolio</h1>
-        <label for="githubRepo">Please enter github repository URL:</label>
-        <input type="text" id="githubRepo" name="githubRepo" placeholder="e.g., https://github.com/your-username/your-repo">
+            h1 {
+                color: #4a90e2;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+            }
 
-        <button id="testButton">Test</button>
-        <p id="loading-indicator">Triggering build... Please wait.</p>
-    </div>
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #555;
+            }
 
-    <!-- Include the particles.js library -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+            input[type='text'] {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                font-size: 16px;
+                transition: border-color 0.3s ease-in-out;
+            }
 
-    <script>
-        // Configuration for particles.js
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#4a90e2"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    },
-                    "image": {
-                        "src": "img/github.svg",
-                        "width": 100,
-                        "height": 100
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 5,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#4a90e2",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
+            input[type='text']:focus {
+                border-color: #4a90e2;
+                outline: none;
+                box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+            }
+
+            button {
+                background-color: #4a90e2;
+                color: white;
+                padding: 14px 24px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+                transition:
+                    background-color 0.3s ease-in-out,
+                    transform 0.2s ease-in-out;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            button:hover {
+                background-color: #357ab6;
+                transform: scale(1.05);
+            }
+
+            button:active {
+                background-color: #2a639a;
+                transform: scale(0.98);
+            }
+
+            #loading-indicator {
+                display: none;
+                margin-top: 20px;
+                font-style: italic;
+                color: #888;
+            }
+
+            /* Add more animations */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
                 }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "repulse"
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Particles effect */
+            #particles-js {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: -1; /* Behind all content */
+            }
+
+            /* Floating Elements */
+            .floating-element {
+                position: absolute;
+                background-color: rgba(74, 144, 226, 0.1);
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: floatAnimation 5s infinite alternate; /* Added animation */
+            }
+
+            @keyframes floatAnimation {
+                0% {
+                    transform: translateY(0);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-20px); /* Adjust the floating distance */
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <!--  Particles.js background -->
+
+        <div class="container animate__animated animate__fadeIn">
+            <h1>Musheer Portfolio</h1>
+            <label for="githubRepo">Please enter github repository URL:</label>
+            <input
+                type="text"
+                id="githubRepo"
+                name="githubRepo"
+                placeholder="e.g., https://github.com/your-username/your-repo"
+            />
+
+            <button id="testButton">Test</button>
+            <p id="loading-indicator">Triggering build... Please wait.</p>
+        </div>
+
+        <!-- Include the particles.js library -->
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+        <script>
+            // Configuration for particles.js
+            particlesJS('particles-js', {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800,
+                        },
                     },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
+                    color: {
+                        value: '#4a90e2',
                     },
-                    "resize": true
+                    shape: {
+                        type: 'circle',
+                        stroke: {
+                            width: 0,
+                            color: '#000000',
+                        },
+                        polygon: {
+                            nb_sides: 5,
+                        },
+                        image: {
+                            src: 'img/github.svg',
+                            width: 100,
+                            height: 100,
+                        },
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: false,
+                        anim: {
+                            enable: false,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false,
+                        },
+                    },
+                    size: {
+                        value: 5,
+                        random: true,
+                        anim: {
+                            enable: false,
+                            speed: 40,
+                            size_min: 0.1,
+                            sync: false,
+                        },
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#4a90e2',
+                        opacity: 0.4,
+                        width: 1,
+                    },
+                    move: {
+                        enable: true,
+                        speed: 6,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200,
+                        },
+                    },
                 },
-                "modes": {
-                    "grab": {
-                        "distance": 400,
-                        "line_linked": {
-                            "opacity": 1
-                        }
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: 'repulse',
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: 'push',
+                        },
+                        resize: true,
                     },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
+                    modes: {
+                        grab: {
+                            distance: 400,
+                            line_linked: {
+                                opacity: 1,
+                            },
+                        },
+                        bubble: {
+                            distance: 400,
+                            size: 40,
+                            duration: 2,
+                            opacity: 8,
+                            speed: 3,
+                        },
+                        repulse: {
+                            distance: 20,
+                        },
+                        push: {
+                            particles_nb: 4,
+                        },
+                        remove: {
+                            particles_nb: 2,
+                        },
                     },
-                    "repulse": {
-                        "distance": 20
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
+                },
+                retina_detect: true,
+                config_demo: {
+                    hide_card: false,
+                    background_color: '#b61924',
+                    background_image: '',
+                    background_position: '50% 50%',
+                    background_repeat: 'no-repeat',
+                    background_size: 'cover',
+                },
+            });
+
+            // Function to create floating elements
+            function createFloatingElements(numberOfElements) {
+                const body = document.body;
+                for (let i = 0; i < numberOfElements; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    // Random position
+                    element.style.left = Math.random() * 100 + 'vw';
+                    element.style.top = Math.random() * 100 + 'vh';
+                    // Random size (optional)
+                    const size = Math.random() * 50 + 30;
+                    element.style.width = size + 'px';
+                    element.style.height = size + 'px';
+                    // Add a small delay to the animation start
+                    element.style.animationDelay = Math.random() * 2 + 's';
+                    body.appendChild(element);
                 }
-            },
-            "retina_detect": true,
-            "config_demo": {
-                "hide_card": false,
-                "background_color": "#b61924",
-                "background_image": "",
-                "background_position": "50% 50%",
-                "background_repeat": "no-repeat",
-                "background_size": "cover"
             }
-        });
 
-        // Function to create floating elements
-        function createFloatingElements(numberOfElements) {
-            const body = document.body;
-            for (let i = 0; i < numberOfElements; i++) {
-                const element = document.createElement('div');
-                element.classList.add('floating-element');
-                // Random position
-                element.style.left = Math.random() * 100 + 'vw';
-                element.style.top = Math.random() * 100 + 'vh';
-                // Random size (optional)
-                const size = Math.random() * 50 + 30;
-                element.style.width = size + 'px';
-                element.style.height = size + 'px';
-                // Add a small delay to the animation start
-                element.style.animationDelay = Math.random() * 2 + 's';
-                body.appendChild(element);
-            }
-        }
+            // Call the function to create floating elements
+            createFloatingElements(10);
 
-        // Call the function to create floating elements
-        createFloatingElements(10);
+            document.addEventListener('DOMContentLoaded', function () {
+                const testButton = document.getElementById('testButton');
+                const githubRepoInput = document.getElementById('githubRepo');
+                const loadingIndicator = document.getElementById('loading-indicator');
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const testButton = document.getElementById('testButton');
-            const githubRepoInput = document.getElementById('githubRepo');
-            const loadingIndicator = document.getElementById('loading-indicator');
+                testButton.addEventListener('click', function () {
+                    const githubRepo = githubRepoInput.value;
 
-            testButton.addEventListener('click', function() {
-                const githubRepo = githubRepoInput.value;
-
-                if (!githubRepo) {
-                    alert("Please enter a GitHub repository URL.");
-                    return;
-                }
-
-                loadingIndicator.style.display = 'block'; // Show loading indicator
-                testButton.disabled = true;
-
-                // Send an AJAX request to your server endpoint
-                fetch('/trigger-jenkins-build', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ githubRepo: githubRepo })
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
+                    if (!githubRepo) {
+                        alert('Please enter a GitHub repository URL.');
+                        return;
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-                    alert('Build triggered successfully! Check Jenkins for progress.');
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Failed to trigger build: ' + error);
-                })
-                .finally(() => {
-                    loadingIndicator.style.display = 'none'; // Hide loading indicator
-                    testButton.disabled = false;
+
+                    loadingIndicator.style.display = 'block'; // Show loading indicator
+                    testButton.disabled = true;
+
+                    // Send an AJAX request to your server endpoint
+                    fetch('/trigger-jenkins-build', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ githubRepo: githubRepo }),
+                    })
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error(
+                                    'Network response was not ok ' + response.statusText,
+                                );
+                            }
+                            return response.json();
+                        })
+                        .then((data) => {
+                            console.log('Success:', data);
+                            alert('Build triggered successfully! Check Jenkins for progress.');
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                            alert('Failed to trigger build: ' + error);
+                        })
+                        .finally(() => {
+                            loadingIndicator.style.display = 'none'; // Hide loading indicator
+                            testButton.disabled = false;
+                        });
                 });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

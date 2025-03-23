@@ -1,33 +1,46 @@
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import importPlugin from "eslint-plugin-import";
-import prettierPlugin from "eslint-plugin-prettier";
+// @ts-check
+import stylistic from '@stylistic/eslint-plugin';
+import tseslint from 'typescript-eslint';
 
-export default [
+const includedFolders = ['src', 'features'];
+
+const customizedESLint = stylistic.configs.customize({
+    indent: 4,
+    quotes: 'single',
+    semi: true,
+    jsx: true,
+    commaDangle: 'never',
+    braceStyle: '1tbs',
+});
+
+export default tseslint.config(
     {
-        files: ["**/*.ts", "**/*.tsx"], // Apply to all TypeScript files
+        ignores: [
+            '**/{www,dist,build}/**/*.*',
+            'projects/*/!(src)/**/*.*',
+            `!(${includedFolders.join(',')})/**/*.*`,
+            '!*.{js,ts,mjs,cjs}',
+        ],
+    },
+    {
+        name: 'typescript',
+        files: ['**/*.{ts,js,tsx,jsx,mjs,cjs,mts}'],
+        extends: [
+            ...tseslint.configs.recommendedTypeChecked,
+            ...tseslint.configs.stylisticTypeChecked,
+        ],
         languageOptions: {
-            parser: tsParser,
-        },
-        plugins: {
-            "@typescript-eslint": tseslint,
-            prettier: prettierPlugin,
-            import: importPlugin,
-        },
-        rules: {
-            "array-bracket-spacing": ["error", "never"],
-            "import/no-unresolved": "warn",
-            "computed-property-spacing": ["warn", "never"],
-            "block-spacing": ["warn", "never"],
-            "keyword-spacing": "warn",
-            "arrow-spacing": "warn",
-            "prettier/prettier": "error",
-            "@typescript-eslint/no-unused-vars": "error",
-        },
-        settings: {
-            "import/resolver": {
-                typescript: {},
+            parserOptions: {
+                parser: tseslint.parser,
+                projectService: true,
+                tsconfigRootDir: import.meta.dirname,
             },
         },
+        plugins: {
+            '@stylistic': stylistic,
+        },
+        rules: {
+            ...customizedESLint.rules,
+        },
     },
-];
+);
