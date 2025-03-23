@@ -1,0 +1,47 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build files
+dist/
+build/
+out/
+coverage/
+tsconfig.tsbuildinfo
+
+# TypeScript files
+*.tsbuildinfo
+*.d.ts
+*.d.ts.map
+
+# Logs and debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log*
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# VSCode settings
+.vscode/
+
+# Playwright/Selenium artifacts
+test-results/
+screenshots/
+videos/
+trace/
+
+# IDE-specific files
+.idea/
+*.iml
+
+# MacOS & Linux
+*.swp
+*.swo
+Thumbs.db

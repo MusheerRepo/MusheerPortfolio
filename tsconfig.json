@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "rootDir": "./",
+        "moduleResolution": "nodenext",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    },
+    "exclude": ["node_modules"],
+    "include": ["./config.ts", "src"],
+    "files": ["cucumber.js", "eslint.config.js"],
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node"
+    }
+}
