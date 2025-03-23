@@ -1,10 +1,10 @@
-import { Browser, Builder } from 'selenium-webdriver';
+import { Browser, Builder, WebDriver } from 'selenium-webdriver';
 import { config } from './config';
 import * as path from 'path';
 import * as fs from 'fs';
 import { Logger } from '../lib/logger';
 
-export function createSeleniumDriver(browser: string) {
+export function createSeleniumDriver(browser: string): WebDriver | void {
     try {
         if (browser.toLowerCase() == 'chrome') {
             return new Builder()

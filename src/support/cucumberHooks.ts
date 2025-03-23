@@ -8,7 +8,7 @@ import winston from 'winston';
 import { createSeleniumDriver } from './utilities';
 
 let logger: winston.Logger;
-let page: WebDriver | undefined;
+let page: WebDriver | void;
 
 BeforeAll(async function () {
     // Check if the directory exists, create it if it doesn't
@@ -31,8 +31,7 @@ BeforeAll(async function () {
     }
 
     //Initializing page
-    console.log(process.env?.BROWSER);
-    page = await createSeleniumDriver(process.env?.BROWSER || 'Chrome');
+    page = createSeleniumDriver(process.env?.BROWSER || 'Chrome');
 });
 
 Before(async function (this: CustomWorld) {

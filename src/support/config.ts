@@ -8,7 +8,7 @@ export const config = {
     screenshot: 'screenshots',
     chrome: () => {
         const options = new chrome.Options();
-        //options.addArguments('--headless');
+        options.addArguments('--headless');
         options.addArguments('--start-maximized');
         options.setUserPreferences({
             'download.default_directory': downloadDir,
