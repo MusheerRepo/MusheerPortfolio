@@ -11,7 +11,7 @@ export class Logger {
     }
 
     log(text: string, severity?: string) {
-        this.worlObject.log(text);
+        this.worlObject.attach(text, 'text/plain');
         this.logger.log({
             level: severity || 'info',
             message: text,

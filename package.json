@@ -6,7 +6,7 @@
     "scripts": {
         "test": "tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
         "testAllure": "USE_ALLURE=1 tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
-        "allure": "allure serve allure-results"
+        "allure": "allure generate allure-results --clean -o allure-reports; allure serve allure-results"
     },
     "author": "",
     "license": "ISC",

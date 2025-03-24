@@ -8,11 +8,19 @@ let outputDir = path.join(process.cwd(), 'outputDir');
 let logsDir = `${outputDir}/logs`;
 
 export const config = {
+    //browser config
     browserName: process.env?.BROWSER || 'Chrome',
+    implicit: 10000,
+    pageLoad: 30000,
+    script: 30000,
+
+    //directory config
     downloadDir: downloadDir,
     outputDir: outputDir,
     screenshotDir: `${outputDir}/screenshots`,
     logsDir: logsDir,
+
+    // browser option instance
     chrome: () => {
         const options = new chrome.Options();
         options.addArguments('--headless');
@@ -39,7 +47,9 @@ export const config = {
 
         return options;
     },
-    logger: (fileName: string, level: string) => {
+
+    //Logger
+    logger: (fileName: string, level = 'info') => {
         // Define the log file path (relative to your project root)
         const logFilePath = `${logsDir}/${fileName}.log`;
 

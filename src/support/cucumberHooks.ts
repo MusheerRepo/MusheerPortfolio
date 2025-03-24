@@ -1,4 +1,4 @@
-import { After, AfterAll, Before, BeforeAll, World } from '@cucumber/cucumber';
+import { After, AfterAll, Before, BeforeAll, setDefaultTimeout } from '@cucumber/cucumber';
 import { ICustomWorld } from './cucumberWorld';
 import { config } from './config';
 import * as fs from 'fs';
@@ -8,11 +8,12 @@ import { createSeleniumDriver } from './utilities';
 import { BrowserActions } from '../lib/browserActions';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
-//import * as allure from 'allure-cucumberjs';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 
 let logger: Logger;
 let page: WebDriver;
+
+setDefaultTimeout(10 * 1000);
 
 BeforeAll(async function () {
     // Check if the directory exists, create it if it doesn't
@@ -38,12 +39,13 @@ BeforeAll(async function () {
     });
 
     //Initializing page
-    page = createSeleniumDriver(config.browserName);
+    page = await createSeleniumDriver(config.browserName);
 });
 
 Before(async function (this: ICustomWorld, scenario) {
     this.feature = scenario;
     this.testName = this.feature.pickle.name;
+    this.allure = new AllureCucumberTestRuntime();
 
     // Initializing logger
     logger = new Logger(this, config.logger(this.testName));
@@ -60,13 +62,12 @@ Before(async function (this: ICustomWorld, scenario) {
 After(async function (this: ICustomWorld) {
     try {
         this.logger?.log(`Scenario Finished: ${this.testName}`);
-        let allure = new AllureCucumberTestRuntime();
         // Screenshot Path
         const screenshotPath = path.join(config.screenshotDir, `${this.testName}.png`);
         if (fs.existsSync(screenshotPath)) {
             const screenshotBuffer = await fs.promises.readFile(screenshotPath);
 
-            await allure.attachment('Screenshot', screenshotBuffer, {
+            await this.allure?.attachment('Screenshot', screenshotBuffer, {
                 contentType: 'image/png',
                 fileExtension: '.png',
             });
@@ -76,7 +77,7 @@ After(async function (this: ICustomWorld) {
         const logFilePath = path.join(config.logsDir, `${this.testName}.log`);
         if (fs.existsSync(logFilePath)) {
             const logContent = await fs.promises.readFile(logFilePath, 'utf-8');
-            await allure.attachment('Logs', logContent, {
+            await this.allure?.attachment('Logs', logContent, {
                 contentType: 'text/plain',
                 fileExtension: '.log',
             });

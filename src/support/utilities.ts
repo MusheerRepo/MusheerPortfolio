@@ -4,15 +4,24 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { Logger } from '../lib/logger';
 
-export function createSeleniumDriver(browser: string): WebDriver {
+export async function createSeleniumDriver(browser: string): Promise<WebDriver> {
+    let page: WebDriver;
     if (browser.toLowerCase() == 'chrome') {
-        return new Builder().forBrowser(Browser.CHROME).setChromeOptions(config.chrome()).build();
+        page = new Builder().forBrowser(Browser.CHROME).setChromeOptions(config.chrome()).build();
     } else {
-        return new Builder()
+        page = new Builder()
             .forBrowser(Browser.FIREFOX)
             .setFirefoxOptions(config.firefox())
             .build();
     }
+
+    await page.manage().setTimeouts({
+        implicit: config.implicit,
+        pageLoad: config.pageLoad,
+        script: config.script,
+    });
+
+    return page;
 }
 
 export const saveScreenshot = async (data: any, fileName?: string, logger?: Logger) => {
