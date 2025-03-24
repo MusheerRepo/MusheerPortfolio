@@ -39,6 +39,7 @@ videos/
 trace/
 allure-results/
 allure-reports/
+reports/
 
 # IDE-specific files
 .idea/
