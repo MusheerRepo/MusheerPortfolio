@@ -9,6 +9,7 @@ export interface ICustomWorld extends World {
     pageActions?: PageActions;
     browserActions?: BrowserActions;
     logger?: Logger;
+    testName?: string;
 }
 
 export class CustomWorld extends World implements ICustomWorld {

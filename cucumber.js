@@ -8,6 +8,7 @@ const getWorldParams = () => {
 
 const config = {
     import: ['src/**/*.ts'],
+    paths: ['src/features/**/*.feature'],
     format: [
         'json:reports/cucumber-report.json',
         'html:reports/report.html',

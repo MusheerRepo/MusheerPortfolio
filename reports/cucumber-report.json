@@ -1,1 +1,55 @@
-[]
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "new-feature;scenario-name",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Scenario name",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 23345791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "Hello",
+            "match": {
+              "location": "src/stepDefinations/feature1.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1877440833
+            },
+            "embeddings": [
+              {
+                "data": "U2F2aW5nIHNjcmVlbnNob3Q=",
+                "mime_type": "text/x.cucumber.log+plain"
+              },
+              {
+                "data": "U2F2ZWQgc2NyZWVuc2hvdCBhdCBwYXRoOiAvVXNlcnMvbXVzaGVlcmtoYW4vRG9jdW1lbnRzL0dpdEh1Yi9NdXNoZWVyUG9ydGZvbGlvL291dHB1dERpci9zY3JlZW5zaG90cy9IOzsucG5n",
+                "mime_type": "text/x.cucumber.log+plain"
+              }
+            ]
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "new-feature",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "New feature",
+    "tags": [],
+    "uri": "src/features/feature1.feature"
+  }
+]
