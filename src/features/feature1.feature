@@ -1,5 +1,5 @@
 Feature: New feature
 
-    Scenario: Scenario name
+    Scenario: First scenario
     Given Hello
     

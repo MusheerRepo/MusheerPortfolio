@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
+        "testAllure": "USE_ALLURE=1 tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
         "allure": "allure serve allure-results"
     },
     "author": "",

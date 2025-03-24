@@ -39,13 +39,13 @@ export const config = {
 
         return options;
     },
-    logger: (fileName: string) => {
+    logger: (fileName: string, level: string) => {
         // Define the log file path (relative to your project root)
         const logFilePath = `${logsDir}/${fileName}.log`;
 
         // Configure Winston logger
         const logger = winston.createLogger({
-            level: '', // Only log errors and above
+            level: level,
             format: winston.format.combine(
                 // Use combine for multiple formats
                 winston.format.timestamp({
@@ -54,12 +54,17 @@ export const config = {
                 winston.format.errors({ stack: true }), // Capture stack traces
                 winston.format.splat(), // Properly format string interpolation
                 winston.format.json(), // Log as JSON (good for file)
+                winston.format.printf(({ timestamp, level, message, stack }) => {
+                    return `${timestamp} ${level}: ${message} ${stack ? `\n${stack}` : ''}`;
+                }),
             ),
             transports: [
                 new winston.transports.Console({
                     format: winston.format.combine(
                         winston.format.colorize(), // Colorize console output
-                        winston.format.simple(), // Use simple format for console
+                        winston.format.printf(({ timestamp, level, message, stack }) => {
+                            return `${timestamp} ${level}: ${message} ${stack ? `\n${stack}` : ''}`;
+                        }),
                     ),
                 }),
                 new winston.transports.File({
