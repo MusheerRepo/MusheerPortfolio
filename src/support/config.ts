@@ -63,8 +63,6 @@ export const config = {
                 }),
                 new winston.transports.File({
                     filename: logFilePath, // Use the defined file path
-                    maxsize: 5242880, // 5MB (optional: configure file size limits)
-                    tailable: true, // Keeps the file open and appends to it
                 }),
             ],
             exceptionHandlers: [

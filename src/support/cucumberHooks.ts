@@ -4,7 +4,6 @@ import { config } from './config';
 import * as fs from 'fs';
 import * as path from 'path';
 import { WebDriver } from 'selenium-webdriver';
-import winston from 'winston';
 import { createSeleniumDriver } from './utilities';
 import { BrowserActions } from '../lib/browserActions';
 import { PageActions } from '../lib/pageActions';
