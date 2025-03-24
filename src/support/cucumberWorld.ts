@@ -1,4 +1,9 @@
-import { World, IWorldOptions, setWorldConstructor } from '@cucumber/cucumber';
+import {
+    World,
+    IWorldOptions,
+    setWorldConstructor,
+    ITestCaseHookParameter,
+} from '@cucumber/cucumber';
 import { WebDriver } from 'selenium-webdriver';
 import { BrowserActions } from '../lib/browserActions';
 import { PageActions } from '../lib/pageActions';
@@ -10,6 +15,7 @@ export interface ICustomWorld extends World {
     browserActions?: BrowserActions;
     logger?: Logger;
     testName?: string;
+    feature?: ITestCaseHookParameter;
 }
 
 export class CustomWorld extends World implements ICustomWorld {

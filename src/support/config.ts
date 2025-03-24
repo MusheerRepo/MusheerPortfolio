@@ -8,6 +8,7 @@ let outputDir = path.join(process.cwd(), 'outputDir');
 let logsDir = `${outputDir}/logs`;
 
 export const config = {
+    browserName: process.env?.BROWSER || 'Chrome',
     downloadDir: downloadDir,
     outputDir: outputDir,
     screenshotDir: `${outputDir}/screenshots`,

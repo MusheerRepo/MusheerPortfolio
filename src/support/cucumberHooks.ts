@@ -1,5 +1,5 @@
-import { AfterAll, Before, BeforeAll, World } from '@cucumber/cucumber';
-import { CustomWorld, ICustomWorld } from './cucumberWorld';
+import { After, AfterAll, Before, BeforeAll, World } from '@cucumber/cucumber';
+import { ICustomWorld } from './cucumberWorld';
 import { config } from './config';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -8,6 +8,8 @@ import { createSeleniumDriver } from './utilities';
 import { BrowserActions } from '../lib/browserActions';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
+//import * as allure from 'allure-cucumberjs';
+import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 
 let logger: Logger;
 let page: WebDriver;
@@ -36,19 +38,52 @@ BeforeAll(async function () {
     });
 
     //Initializing page
-    page = createSeleniumDriver(process.env?.BROWSER || 'Chrome');
+    page = createSeleniumDriver(config.browserName);
 });
 
-Before(async function (this: ICustomWorld, scenarioResult) {
-    // Initalizing page
-    this.page = page;
-    this.browserActions = new BrowserActions(page);
-    this.pageActions = new PageActions(page, this.browserActions);
-    this.testName = scenarioResult.result?.status?.toString() || 'H;;';
+Before(async function (this: ICustomWorld, scenario) {
+    this.feature = scenario;
+    this.testName = this.feature.pickle.name;
 
     // Initializing logger
     logger = new Logger(this, config.logger(this.testName));
     this.logger = logger;
+
+    this.logger?.log(`Scenario Started: ${this.testName}`);
+
+    // Initalizing page
+    this.page = page;
+    this.browserActions = new BrowserActions(page);
+    this.pageActions = new PageActions(page, this.browserActions);
+});
+
+After(async function (this: ICustomWorld) {
+    try {
+        this.logger?.log(`Scenario Finished: ${this.testName}`);
+        let allure = new AllureCucumberTestRuntime();
+        // Screenshot Path
+        const screenshotPath = path.join(config.screenshotDir, `${this.testName}.png`);
+        if (fs.existsSync(screenshotPath)) {
+            const screenshotBuffer = await fs.promises.readFile(screenshotPath);
+
+            await allure.attachment('Screenshot', screenshotBuffer, {
+                contentType: 'image/png',
+                fileExtension: '.png',
+            });
+        }
+
+        // Attach Logs
+        const logFilePath = path.join(config.logsDir, `${this.testName}.log`);
+        if (fs.existsSync(logFilePath)) {
+            const logContent = await fs.promises.readFile(logFilePath, 'utf-8');
+            await allure.attachment('Logs', logContent, {
+                contentType: 'text/plain',
+                fileExtension: '.log',
+            });
+        }
+    } catch (e) {
+        this.logger?.log(`Error attaching reports: ${String(e)}`, 'error');
+    }
 });
 
 AfterAll(async function () {
