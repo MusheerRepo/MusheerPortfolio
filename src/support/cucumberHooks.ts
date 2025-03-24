@@ -22,6 +22,8 @@ BeforeAll(async function () {
         config.outputDir,
         config.logsDir,
         config.screenshotDir,
+        config.allureResults,
+        config.allureReports,
     ];
 
     directories.forEach((directory) => {
