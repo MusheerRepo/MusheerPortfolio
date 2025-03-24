@@ -40,6 +40,7 @@ trace/
 allure-results/
 allure-reports/
 reports/
+outputDir/
 
 # IDE-specific files
 .idea/
