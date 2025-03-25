@@ -10,8 +10,7 @@ export class PageActions {
         this.browserActions = browserAction;
     }
 
-    async click(element: WebElement) {
-        await element.click();
+    async click() {
         await this.browserActions.navigate('https://google.com');
     }
 }
