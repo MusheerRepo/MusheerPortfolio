@@ -19,6 +19,8 @@ export const config = {
     outputDir: outputDir,
     screenshotDir: `${outputDir}/screenshots`,
     logsDir: logsDir,
+    allureResults: path.join(process.cwd(), 'allure-results'),
+    allureReports: path.join(process.cwd(), 'allure-reports'),
 
     // browser option instance
     chrome: () => {
