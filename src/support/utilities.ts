@@ -7,11 +7,14 @@ import { Logger } from '../lib/logger';
 export async function createSeleniumDriver(browser: string): Promise<WebDriver> {
     let page: WebDriver;
     if (browser.toLowerCase() == 'chrome') {
-        page = new Builder().forBrowser(Browser.CHROME).setChromeOptions(config.chrome()).build();
+        page = new Builder()
+            .forBrowser(Browser.CHROME)
+            .setChromeOptions(config.chromeOptions())
+            .build();
     } else {
         page = new Builder()
             .forBrowser(Browser.FIREFOX)
-            .setFirefoxOptions(config.firefox())
+            .setFirefoxOptions(config.firefoxOptions())
             .build();
     }
 

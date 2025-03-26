@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { WebDriver } from 'selenium-webdriver';
 import { createSeleniumDriver } from './utilities';
-import { BrowserActions } from '../lib/browserActions';
+import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
@@ -57,8 +57,8 @@ Before(async function (this: ICustomWorld, scenario) {
 
     // Initalizing page
     this.page = page;
-    this.browserActions = new BrowserActions(page);
-    this.pageActions = new PageActions(page, this.browserActions);
+    this.PageObjects = new PageObjects(page, this.logger);
+    this.pageActions = new PageActions(page, this.PageObjects, this.logger);
 });
 
 After(async function (this: ICustomWorld) {
