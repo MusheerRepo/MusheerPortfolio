@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { WebDriver } from 'selenium-webdriver';
 import { createSeleniumDriver } from './utilities';
-import { BrowserActions } from '../lib/browserActions';
+import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
@@ -57,14 +57,27 @@ Before(async function (this: ICustomWorld, scenario) {
 
     // Initalizing page
     this.page = page;
-    this.browserActions = new BrowserActions(page);
-    this.pageActions = new PageActions(page, this.browserActions);
+    this.PageObjects = new PageObjects(page, this.logger);
+    this.pageActions = new PageActions(page, this.logger);
 });
 
 After(async function (this: ICustomWorld) {
     try {
         this.logger?.log(`Scenario Finished: ${this.testName}`);
-        // Screenshot Path
+        // Attaching screenshots on failure
+        if (this.feature?.result?.status?.toString().toLowerCase() != 'passed') {
+            const screenshotPath = await this.pageActions?.takeScreenshot(
+                `${this.testName}Failure`,
+            );
+            if (screenshotPath) {
+                await this.allure?.attachmentFromPath('Failure screenshot', screenshotPath, {
+                    contentType: 'image/png',
+                    fileExtension: '.png',
+                });
+            }
+        }
+
+        // Attaching in execution screenshots
         const screenshotPath = path.join(config.screenshotDir, `${this.testName}.png`);
         if (fs.existsSync(screenshotPath)) {
             const screenshotBuffer = await fs.promises.readFile(screenshotPath);

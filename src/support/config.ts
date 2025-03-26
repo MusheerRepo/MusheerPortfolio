@@ -13,6 +13,7 @@ export const config = {
     implicit: 10000,
     pageLoad: 30000,
     script: 30000,
+    waitTimeout: 10000,
 
     //directory config
     downloadDir: downloadDir,
@@ -23,7 +24,7 @@ export const config = {
     allureReports: path.join(process.cwd(), 'allure-reports'),
 
     // browser option instance
-    chrome: () => {
+    chromeOptions: () => {
         const options = new chrome.Options();
         //options.addArguments('--headless');
         options.addArguments('--start-maximized');
@@ -33,10 +34,9 @@ export const config = {
             'download.directory_upgrade': true,
             'safebrowsing.enabled': true,
         });
-
         return options;
     },
-    firefox: () => {
+    firefoxOptions: () => {
         const options = new firefox.Options();
         //options.addArguments('--headless');
         options.setPreference('browser.download.folderList', 2);
@@ -46,7 +46,6 @@ export const config = {
             'application/pdf,application/octet-stream',
         );
         options.setPreference('pdfjs.disabled', true);
-
         return options;
     },
 

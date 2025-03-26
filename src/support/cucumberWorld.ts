@@ -5,7 +5,7 @@ import {
     ITestCaseHookParameter,
 } from '@cucumber/cucumber';
 import { WebDriver } from 'selenium-webdriver';
-import { BrowserActions } from '../lib/browserActions';
+import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
@@ -13,7 +13,7 @@ import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 export interface ICustomWorld extends World {
     page?: WebDriver;
     pageActions?: PageActions;
-    browserActions?: BrowserActions;
+    PageObjects?: PageObjects;
     logger?: Logger;
     testName?: string;
     feature?: ITestCaseHookParameter;

@@ -325,7 +325,8 @@
                     testButton.disabled = true;
 
                     // Send an AJAX request to your server endpoint
-                    fetch('/trigger-jenkins-build', {
+                    // IMPORTANT: Change '/run-ubuntu-container' to your actual endpoint
+                    fetch('http://127.0.0.1:3000/run-ubuntu-container', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -342,11 +343,14 @@
                         })
                         .then((data) => {
                             console.log('Success:', data);
-                            alert('Build triggered successfully! Check Jenkins for progress.');
+                            // Update the alert message to be more appropriate
+                            alert(
+                                'Container started (not interactively). Check server logs for container ID.',
+                            );
                         })
                         .catch((error) => {
                             console.error('Error:', error);
-                            alert('Failed to trigger build: ' + error);
+                            alert('Failed to start container: ' + error);
                         })
                         .finally(() => {
                             loadingIndicator.style.display = 'none'; // Hide loading indicator
