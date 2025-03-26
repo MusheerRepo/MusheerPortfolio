@@ -1,5 +1,5 @@
 import { Logger } from './logger';
-import { Actions, By, until, WebDriver, WebElement } from 'selenium-webdriver';
+import { Actions, By, WebDriver, WebElement } from 'selenium-webdriver';
 import { config } from '../support/config';
 import * as path from 'path';
 import * as fs from 'fs';
