@@ -27,25 +27,25 @@ export class PageActions {
     async navigateTo(url: string): Promise<void> {
         this.logger?.log(`Navigating to URL: ${url}`);
         await this.page.get(url);
-        this.waitForPageToLoad();
+        await this.waitForPageToLoad();
     }
 
     async refreshPage(): Promise<void> {
         this.logger?.log('Refreshing the page');
         await this.page.navigate().refresh();
-        this.waitForPageToLoad();
+        await this.waitForPageToLoad();
     }
 
     async goBack(): Promise<void> {
         this.logger?.log('Navigating back to the previous page');
         await this.page.navigate().back();
-        this.waitForPageToLoad();
+        await this.waitForPageToLoad();
     }
 
     async goForward(): Promise<void> {
         this.logger?.log('Navigating forward to the next page');
         await this.page.navigate().forward();
-        this.waitForPageToLoad();
+        await this.waitForPageToLoad();
     }
 
     // Element Interaction Actions
@@ -151,13 +151,14 @@ export class PageActions {
     }
 
     // Screenshot & Logs
-    async takeScreenshot(fileName = 'screenshot'): Promise<void> {
+    async takeScreenshot(fileName = 'screenshot'): Promise<string> {
         const screenshotDir = config.screenshotDir;
         const filePath = path.join(screenshotDir, `${fileName}.png`);
         this.logger?.log('Saving screenshot');
         const data = await this.page?.takeScreenshot();
         fs.writeFileSync(filePath, data, 'base64');
         this.logger?.log(`Saved screenshot at path: ${filePath}`);
+        return filePath;
     }
 
     async getBrowserLogs(): Promise<void> {

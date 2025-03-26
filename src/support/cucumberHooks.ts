@@ -64,7 +64,20 @@ Before(async function (this: ICustomWorld, scenario) {
 After(async function (this: ICustomWorld) {
     try {
         this.logger?.log(`Scenario Finished: ${this.testName}`);
-        // Screenshot Path
+        // Attaching screenshots on failure
+        if (this.feature?.result?.status?.toString().toLowerCase() != 'passed') {
+            const screenshotPath = await this.pageActions?.takeScreenshot(
+                `${this.testName}Failure`,
+            );
+            if (screenshotPath) {
+                await this.allure?.attachmentFromPath('Failure screenshot', screenshotPath, {
+                    contentType: 'image/png',
+                    fileExtension: '.png',
+                });
+            }
+        }
+
+        // Attaching in execution screenshots
         const screenshotPath = path.join(config.screenshotDir, `${this.testName}.png`);
         if (fs.existsSync(screenshotPath)) {
             const screenshotBuffer = await fs.promises.readFile(screenshotPath);
