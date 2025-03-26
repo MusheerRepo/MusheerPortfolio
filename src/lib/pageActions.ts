@@ -6,7 +6,7 @@ import { config } from '../support/config';
 export class PageActions {
     private page: WebDriver;
     private logger: Logger;
-    private pageObjects: PageObjects;
+    public pageObjects: PageObjects;
 
     constructor(page: WebDriver, pageObjects: PageObjects, logger: Logger) {
         this.page = page;
@@ -34,16 +34,19 @@ export class PageActions {
     async refreshPage(): Promise<void> {
         this.logger?.log('Refreshing the page');
         await this.page.navigate().refresh();
+        this.waitForPageToLoad();
     }
 
     async goBack(): Promise<void> {
         this.logger?.log('Navigating back to the previous page');
         await this.page.navigate().back();
+        this.waitForPageToLoad();
     }
 
     async goForward(): Promise<void> {
         this.logger?.log('Navigating forward to the next page');
         await this.page.navigate().forward();
+        this.waitForPageToLoad();
     }
 
     // Element Interaction Actions
