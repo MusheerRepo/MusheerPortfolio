@@ -58,7 +58,7 @@ Before(async function (this: ICustomWorld, scenario) {
     // Initalizing page
     this.page = page;
     this.PageObjects = new PageObjects(page, this.logger);
-    this.pageActions = new PageActions(page, this.PageObjects, this.logger);
+    this.pageActions = new PageActions(page, this.logger);
 });
 
 After(async function (this: ICustomWorld) {

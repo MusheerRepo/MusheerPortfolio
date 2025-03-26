@@ -1,17 +1,16 @@
 import { Logger } from './logger';
 import { Actions, By, until, WebDriver, WebElement } from 'selenium-webdriver';
-import { PageObjects } from './pageObjects';
 import { config } from '../support/config';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export class PageActions {
     private page: WebDriver;
     private logger: Logger;
-    public pageObjects: PageObjects;
 
-    constructor(page: WebDriver, pageObjects: PageObjects, logger: Logger) {
+    constructor(page: WebDriver, logger: Logger) {
         this.page = page;
         this.logger = logger;
-        this.pageObjects = pageObjects;
     }
 
     //Wait function for page to load
@@ -50,46 +49,39 @@ export class PageActions {
     }
 
     // Element Interaction Actions
-    async clickElement(locator: By): Promise<void> {
-        this.logger?.log(`Clicking on element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async clickElement(element: WebElement): Promise<void> {
+        this.logger?.log(`Clicking on element: ${element}`);
         await element.click();
     }
 
-    async enterText(locator: By, text: string): Promise<void> {
-        this.logger?.log(`Entering text '${text}' in element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async enterText(element: WebElement, text: string): Promise<void> {
+        this.logger?.log(`Entering text '${text}' in element: ${element}`);
         await element.sendKeys(text);
     }
 
-    async clearText(locator: By): Promise<void> {
-        this.logger?.log(`Clearing text from element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async clearText(element: WebElement): Promise<void> {
+        this.logger?.log(`Clearing text from element: ${element}`);
         await element.clear();
     }
 
-    async submitForm(locator: By): Promise<void> {
-        this.logger?.log(`Submitting form for element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async submitForm(element: WebElement): Promise<void> {
+        this.logger?.log(`Submitting form for element: ${element}`);
         await element.submit();
     }
 
     // Keyboard & Mouse Actions
-    async hoverOverElement(locator: By): Promise<void> {
-        this.logger?.log(`Hovering over element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async hoverOverElement(element: WebElement): Promise<void> {
+        this.logger?.log(`Hovering over element: ${element}`);
         await new Actions(this.page).move({ origin: element }).perform();
     }
 
-    async rightClickElement(locator: By): Promise<void> {
-        this.logger?.log(`Right-clicking on element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async rightClickElement(element: WebElement): Promise<void> {
+        this.logger?.log(`Right-clicking on element: ${element}`);
         await new Actions(this.page).contextClick(element).perform();
     }
 
-    async doubleClickElement(locator: By): Promise<void> {
-        this.logger?.log(`Double-clicking on element: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async doubleClickElement(element: WebElement): Promise<void> {
+        this.logger?.log(`Double-clicking on element: ${element}`);
         await new Actions(this.page).doubleClick(element).perform();
     }
 
@@ -98,21 +90,28 @@ export class PageActions {
         await this.page.actions().sendKeys(key).perform();
     }
 
-    async dragAndDrop(sourceLocator: By, targetLocator: By): Promise<void> {
-        this.logger?.log(`Dragging element from ${sourceLocator} to ${targetLocator}`);
-        const sourceElement = await this.page.findElement(sourceLocator);
-        const targetElement = await this.page.findElement(targetLocator);
+    async dragAndDrop(sourceElement: WebElement, targetElement: WebElement): Promise<void> {
+        this.logger?.log(`Dragging element from ${sourceElement} to ${targetElement}`);
         await new Actions(this.page).dragAndDrop(sourceElement, targetElement).perform();
     }
 
     // Dropdown Actions
-    async selectByVisibleText(locator: By, text: string): Promise<void> {
-        this.logger?.log(`Selecting '${text}' from dropdown: ${locator}`);
-        const element = await this.page.findElement(locator);
+    async selectByVisibleText(element: WebElement, text: string): Promise<void> {
+        this.logger?.log(`Selecting '${text}' from dropdown: ${element}`);
         await element.sendKeys(text);
     }
 
     // Window & Alert Handling
+    async getWindowHandle(): Promise<string> {
+        this.logger?.log(`Fetching window handle`);
+        return await this.page.getWindowHandle();
+    }
+
+    async getWindowHandles(): Promise<string[]> {
+        this.logger?.log(`Fetching window handles`);
+        return await this.page.getAllWindowHandles();
+    }
+
     async switchToWindow(handle: string): Promise<void> {
         this.logger?.log(`Switching to window: ${handle}`);
         await this.page.switchTo().window(handle);
@@ -145,36 +144,6 @@ export class PageActions {
         await this.page.switchTo().defaultContent();
     }
 
-    // Element Verification
-    async isElementDisplayed(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is displayed`);
-        return await this.page.findElement(locator).isDisplayed();
-    }
-
-    async isElementEnabled(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is enabled`);
-        return await this.page.findElement(locator).isEnabled();
-    }
-
-    async isElementSelected(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is selected`);
-        return await this.page.findElement(locator).isSelected();
-    }
-
-    // Wait Actions
-    async waitForElementVisible(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger?.log(`Waiting for element ${locator} to be visible`);
-        return await this.page.wait(until.elementLocated(locator), timeout);
-    }
-
-    async waitForElementClickable(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger?.log(`Waiting for element ${locator} to be clickable`);
-        return await this.page.wait(
-            until.elementIsVisible(await this.page.findElement(locator)),
-            timeout,
-        );
-    }
-
     // JavaScript Execution
     async executeScript(script: string, ...args: any[]): Promise<any> {
         this.logger?.log(`Executing JavaScript: ${script}`);
@@ -182,10 +151,13 @@ export class PageActions {
     }
 
     // Screenshot & Logs
-    async takeScreenshot(filename = 'screenshot'): Promise<void> {
-        this.logger?.log(`Saving screenshot: ${filename}`);
-        const image = await this.page.takeScreenshot();
-        require('fs').writeFileSync(filename, image, 'base64');
+    async takeScreenshot(fileName = 'screenshot'): Promise<void> {
+        const screenshotDir = config.screenshotDir;
+        const filePath = path.join(screenshotDir, `${fileName}.png`);
+        this.logger?.log('Saving screenshot');
+        const data = await this.page?.takeScreenshot();
+        fs.writeFileSync(filePath, data, 'base64');
+        this.logger?.log(`Saved screenshot at path: ${filePath}`);
     }
 
     async getBrowserLogs(): Promise<void> {

@@ -108,4 +108,34 @@ export class PageObjects {
         this.logger.log(`Found all elements by XPath: ${xpath}`);
         return await this.page.findElements(By.xpath(xpath));
     }
+
+    // Element Verification
+    async isElementDisplayed(locator: By): Promise<boolean> {
+        this.logger?.log(`Checking if element ${locator} is displayed`);
+        return await this.page.findElement(locator).isDisplayed();
+    }
+
+    async isElementEnabled(locator: By): Promise<boolean> {
+        this.logger?.log(`Checking if element ${locator} is enabled`);
+        return await this.page.findElement(locator).isEnabled();
+    }
+
+    async isElementSelected(locator: By): Promise<boolean> {
+        this.logger?.log(`Checking if element ${locator} is selected`);
+        return await this.page.findElement(locator).isSelected();
+    }
+
+    // Wait Actions
+    async waitForElementVisible(locator: By, timeout: number = 5000): Promise<WebElement> {
+        this.logger?.log(`Waiting for element ${locator} to be visible`);
+        return await this.page.wait(until.elementLocated(locator), timeout);
+    }
+
+    async waitForElementClickable(locator: By, timeout: number = 5000): Promise<WebElement> {
+        this.logger?.log(`Waiting for element ${locator} to be clickable`);
+        return await this.page.wait(
+            until.elementIsVisible(await this.page.findElement(locator)),
+            timeout,
+        );
+    }
 }
