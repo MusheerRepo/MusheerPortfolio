@@ -83,7 +83,7 @@ export const config = {
                 }),
             ],
             exceptionHandlers: [
-                new winston.transports.File({ filename: 'exceptions.log' }), //Handle exceptions in separate file
+                new winston.transports.File({ filename: `${outputDir}/exceptions.log` }), //Handle exceptions in separate file
             ],
             exitOnError: false, // Do not exit on exception
         });
