@@ -3,7 +3,7 @@ import { ICustomWorld } from './cucumberWorld';
 import { config } from './config';
 import * as fs from 'fs';
 import * as path from 'path';
-import { WebDriver } from 'selenium-webdriver';
+import { Actions, WebDriver } from 'selenium-webdriver';
 import { createSeleniumDriver } from './utilities';
 import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';

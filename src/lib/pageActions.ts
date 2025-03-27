@@ -1,5 +1,5 @@
 import { Logger } from './logger';
-import { Actions, By, WebDriver, WebElement } from 'selenium-webdriver';
+import { Actions, By, until, WebDriver, WebElement } from 'selenium-webdriver';
 import { config } from '../support/config';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -20,6 +20,7 @@ export class PageActions {
             const readyState = await this.page.executeScript('return document.readyState');
             return readyState === 'complete';
         }, config.waitTimeout);
+        await this.page.wait(until.elementLocated(By.css('body')));
         this.logger.log('Page loaded');
     }
 
@@ -56,6 +57,7 @@ export class PageActions {
 
     async enterText(element: WebElement, text: string): Promise<void> {
         this.logger.log(`Entering text '${text}' in element: ${element}`);
+        await element.clear();
         await element.sendKeys(text);
     }
 
@@ -87,7 +89,7 @@ export class PageActions {
 
     async pressKey(key: string): Promise<void> {
         this.logger.log(`Pressing key: ${key}`);
-        await this.page.actions().sendKeys(key).perform();
+        await new Actions(this.page).sendKeys(key).perform();
     }
 
     async dragAndDrop(sourceElement: WebElement, targetElement: WebElement): Promise<void> {
@@ -152,13 +154,18 @@ export class PageActions {
 
     // Screenshot & Logs
     async takeScreenshot(fileName = 'screenshot'): Promise<string> {
-        const screenshotDir = config.screenshotDir;
-        const filePath = path.join(screenshotDir, `${fileName}.png`);
-        this.logger.log('Saving screenshot');
-        const data = await this.page?.takeScreenshot();
-        fs.writeFileSync(filePath, data, 'base64');
-        this.logger.log(`Saved screenshot at path: ${filePath}`);
-        return filePath;
+        try {
+            const screenshotDir = config.screenshotDir;
+            const filePath = path.join(screenshotDir, `${fileName}.png`);
+            this.logger.log('Saving screenshot');
+            const data = await this.page?.takeScreenshot();
+            fs.writeFileSync(filePath, data, 'base64');
+            this.logger.log(`Saved screenshot at path: ${filePath}`);
+            return filePath;
+        } catch {
+            this.logger.log('Unable to take screenshot');
+            throw new Error();
+        }
     }
 
     async getBrowserLogs(): Promise<void> {

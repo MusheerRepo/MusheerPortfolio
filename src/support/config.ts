@@ -9,7 +9,10 @@ let logsDir = `${outputDir}/logs`;
 
 export const config = {
     //browser config
-    browserName: process.env?.BROWSER || 'Chrome',
+    browserName: process.env.BROWSER || 'Chrome',
+    baseURL: process.env.URL || 'https://www.automationexercise.com/',
+
+    // timeouts
     implicit: 10000,
     pageLoad: 30000,
     script: 30000,
@@ -26,8 +29,12 @@ export const config = {
     // browser option instance
     chromeOptions: () => {
         const options = new chrome.Options();
-        //options.addArguments('--headless');
-        options.addArguments('--start-maximized');
+        process.env.headless?.toString() == 'true'
+            ? options.addArguments('--headless')
+            : options.addArguments('--window-size=1920,1080');
+        options.addArguments('--no-sandbox');
+        options.addArguments('--disable-dev-shm-usage');
+        options.addArguments('--disable-gpu');
         options.setUserPreferences({
             'download.default_directory': downloadDir,
             'download.prompt_for_download': false,
@@ -38,7 +45,12 @@ export const config = {
     },
     firefoxOptions: () => {
         const options = new firefox.Options();
-        //options.addArguments('--headless');
+        process.env.headless?.toString() == 'true'
+            ? options.addArguments('--headless')
+            : options.addArguments('--window-size=1920,1080');
+        options.addArguments('--no-sandbox');
+        options.addArguments('--disable-dev-shm-usage');
+        options.addArguments('--disable-gpu');
         options.setPreference('browser.download.folderList', 2);
         options.setPreference('browser.download.dir', downloadDir);
         options.setPreference(
