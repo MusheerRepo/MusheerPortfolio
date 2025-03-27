@@ -111,28 +111,28 @@ export class PageObjects {
 
     // Element Verification
     async isElementDisplayed(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is displayed`);
+        this.logger.log(`Checking if element ${locator} is displayed`);
         return await this.page.findElement(locator).isDisplayed();
     }
 
     async isElementEnabled(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is enabled`);
+        this.logger.log(`Checking if element ${locator} is enabled`);
         return await this.page.findElement(locator).isEnabled();
     }
 
     async isElementSelected(locator: By): Promise<boolean> {
-        this.logger?.log(`Checking if element ${locator} is selected`);
+        this.logger.log(`Checking if element ${locator} is selected`);
         return await this.page.findElement(locator).isSelected();
     }
 
     // Wait Actions
     async waitForElementVisible(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger?.log(`Waiting for element ${locator} to be visible`);
+        this.logger.log(`Waiting for element ${locator} to be visible`);
         return await this.page.wait(until.elementLocated(locator), timeout);
     }
 
     async waitForElementClickable(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger?.log(`Waiting for element ${locator} to be clickable`);
+        this.logger.log(`Waiting for element ${locator} to be clickable`);
         return await this.page.wait(
             until.elementIsVisible(await this.page.findElement(locator)),
             timeout,
