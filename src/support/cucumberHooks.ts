@@ -3,7 +3,7 @@ import { ICustomWorld } from './cucumberWorld';
 import { config } from './config';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Actions, WebDriver } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
 import { createSeleniumDriver } from './utilities';
 import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
@@ -59,6 +59,9 @@ Before(async function (this: ICustomWorld, scenario) {
     this.page = page;
     this.PageObjects = new PageObjects(page, this.logger);
     this.pageActions = new PageActions(page, this.logger);
+
+    // Navigating to baseURL
+    this.page.get(config.baseURL);
 });
 
 After(async function (this: ICustomWorld) {
