@@ -1,6 +1,7 @@
 import winston from 'winston';
 import { ICustomWorld } from '../support/cucumberWorld';
 
+// This class is a base class for logging
 export class Logger {
     private worlObject: ICustomWorld;
     private logger: winston.Logger;

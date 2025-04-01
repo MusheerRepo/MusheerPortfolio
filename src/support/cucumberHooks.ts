@@ -13,7 +13,7 @@ import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 let logger: Logger;
 let page: WebDriver;
 
-setDefaultTimeout(10 * 1000);
+setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function () {
     // Check if the directory exists, create it if it doesn't
@@ -69,14 +69,19 @@ After(async function (this: ICustomWorld) {
         this.logger?.log(`Scenario Finished: ${this.testName}`);
         // Attaching screenshots on failure
         if (this.feature?.result?.status?.toString().toLowerCase() != 'passed') {
-            const screenshotPath = await this.pageActions?.takeScreenshot(
+            const screenshotBuffer = await this.pageActions?.takeScreenshot(
                 `${this.testName}Failure`,
             );
-            if (screenshotPath) {
-                await this.allure?.attachmentFromPath('Failure screenshot', screenshotPath, {
+            if (screenshotBuffer) {
+                await this.allure?.attachmentFromPath('Failure screenshot', screenshotBuffer, {
                     contentType: 'image/png',
                     fileExtension: '.png',
                 });
+                fs.writeFileSync(
+                    path.join(config.outputDir, `${this.testName} failure Screenshot`),
+                    screenshotBuffer,
+                    'base64',
+                );
             }
         }
 

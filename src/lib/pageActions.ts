@@ -4,6 +4,7 @@ import { config } from '../support/config';
 import * as path from 'path';
 import * as fs from 'fs';
 
+// This class is a base class for all page actions
 export class PageActions {
     private page: WebDriver;
     private logger: Logger;
@@ -153,12 +154,15 @@ export class PageActions {
     }
 
     // Screenshot & Logs
-    async takeScreenshot(fileName = 'screenshot'): Promise<string> {
+    async takeScreenshot(fileName = 'screenshot', element?: WebElement): Promise<string> {
         try {
             const screenshotDir = config.screenshotDir;
             const filePath = path.join(screenshotDir, `${fileName}.png`);
             this.logger.log('Saving screenshot');
-            const data = await this.page?.takeScreenshot();
+            let data;
+            element
+                ? (data = await element.takeScreenshot())
+                : (data = await this.page?.takeScreenshot());
             fs.writeFileSync(filePath, data, 'base64');
             this.logger.log(`Saved screenshot at path: ${filePath}`);
             return filePath;
