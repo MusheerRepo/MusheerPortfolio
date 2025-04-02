@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Selenium Practice Page</title>
+        <style>
+            .tooltip {
+                display: none;
+                position: absolute;
+                background-color: #333;
+                color: #fff;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            .hover-element:hover + .tooltip {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Selenium Practice Page</h1>
+
+        <!-- Basic Form Elements -->
+        <section>
+            <h2>Basic Form Elements</h2>
+            <form>
+                <label for="text-input">Text Input:</label>
+                <input type="text" id="text-input" data-testid="text-input" /><br />
+
+                <label for="password-input">Password:</label>
+                <input type="password" id="password-input" data-testid="password-input" /><br />
+
+                <label for="textarea">Textarea:</label>
+                <textarea id="textarea" data-testid="textarea"></textarea><br />
+
+                <label for="checkbox">Checkbox:</label>
+                <input type="checkbox" id="checkbox" data-testid="checkbox" /><br />
+
+                <label for="radio-button">Radio Button:</label>
+                <input
+                    type="radio"
+                    id="radio-button"
+                    name="radio-group"
+                    data-testid="radio-button"
+                /><br />
+            </form>
+        </section>
+
+        <!-- Buttons -->
+        <section>
+            <h2>Buttons</h2>
+            <button id="click-button" data-testid="click-button">Click Me</button>
+            <button
+                id="double-click-button"
+                data-testid="double-click-button"
+                ondblclick="alert('Double Clicked!')"
+            >
+                Double Click Me
+            </button>
+            <button
+                id="right-click-button"
+                data-testid="right-click-button"
+                oncontextmenu="alert('Right Clicked!'); return false;"
+            >
+                Right Click Me
+            </button>
+        </section>
+
+        <!-- Dropdowns -->
+        <section>
+            <h2>Dropdowns</h2>
+            <label for="single-select">Single Select:</label>
+            <select id="single-select" data-testid="single-select">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option></select
+            ><br />
+
+            <label for="multi-select">Multi Select:</label>
+            <select id="multi-select" multiple data-testid="multi-select">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </select>
+        </section>
+
+        <!-- Alerts -->
+        <section>
+            <h2>Alerts</h2>
+            <button onclick="alert('Simple Alert!')" data-testid="simple-alert">
+                Simple Alert
+            </button>
+            <button onclick="confirm('Confirmation Alert!')" data-testid="confirm-alert">
+                Confirmation Alert
+            </button>
+            <button onclick="prompt('Prompt Alert!')" data-testid="prompt-alert">
+                Prompt Alert
+            </button>
+        </section>
+
+        <!-- Frames -->
+        <section>
+            <h2>Frames</h2>
+            <iframe
+                id="parent-frame"
+                data-testid="parent-frame"
+                srcdoc="<p>Parent Frame</p><iframe srcdoc='<p>Child Frame</p>'></iframe>"
+            ></iframe>
+        </section>
+
+        <!-- New Windows/Tabs -->
+        <section>
+            <h2>New Windows/Tabs</h2>
+            <a href="https://www.example.com" target="_blank" data-testid="new-window"
+                >Open in New Window</a
+            >
+        </section>
+
+        <!-- Dynamic Content -->
+        <section>
+            <h2>Dynamic Content</h2>
+            <button id="dynamic-content-button" data-testid="dynamic-content-button">
+                Load Content
+            </button>
+            <div id="dynamic-content" data-testid="dynamic-content"></div>
+        </section>
+
+        <!-- Web Tables -->
+        <section>
+            <h2>Web Tables</h2>
+            <table id="static-table" data-testid="static-table">
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                </tr>
+                <tr>
+                    <td>Row 1, Cell 1</td>
+                    <td>Row 1, Cell 2</td>
+                </tr>
+            </table>
+            <button id="add-row-button" data-testid="add-row-button">Add Row</button>
+        </section>
+
+        <!-- Mouse Actions -->
+        <section>
+            <h2>Mouse Actions</h2>
+            <div class="hover-element" data-testid="hover-element">Hover over me</div>
+            <div class="tooltip">Tooltip Text</div>
+
+            <div id="drag-drop-container" data-testid="drag-drop-container">
+                <div id="draggable" draggable="true">Drag Me</div>
+                <div id="droppable">Drop Here</div>
+            </div>
+        </section>
+
+        <!-- File Upload -->
+        <section>
+            <h2>File Upload</h2>
+            <input type="file" id="file-upload" data-testid="file-upload" />
+        </section>
+
+        <!-- File Download -->
+        <section>
+            <h2>File Download</h2>
+            <a
+                href="data:text/plain;charset=utf-8,Hello%20World"
+                download="example.txt"
+                data-testid="file-download"
+                >Download Text File</a
+            >
+        </section>
+
+        <!-- Disabled & Hidden Elements -->
+        <section>
+            <h2>Disabled & Hidden Elements</h2>
+            <input type="text" disabled data-testid="disabled-input" />
+            <input type="text" style="display: none" data-testid="hidden-input" />
+        </section>
+
+        <!-- Advanced Dropdowns -->
+        <section>
+            <h2>Advanced Dropdowns</h2>
+            <select id="advanced-dropdown" data-testid="advanced-dropdown">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+            </select>
+        </section>
+
+        <!-- Shadow DOM -->
+        <section>
+            <h2>Shadow DOM</h2>
+            <div id="shadow-host" data-testid="shadow-host"></div>
+        </section>
+
+        <!-- SVG Element -->
+        <section>
+            <h2>SVG Element</h2>
+            <svg width="100" height="100" data-testid="svg-element">
+                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+            </svg>
+        </section>
+
+        <script>
+            // Dynamic Content
+            document
+                .getElementById('dynamic-content-button')
+                .addEventListener('click', function () {
+                    document.getElementById('dynamic-content').innerText =
+                        'Dynamic Content Loaded!';
+                });
+
+            // Web Tables
+            document.getElementById('add-row-button').addEventListener('click', function () {
+                const table = document.getElementById('static-table');
+                const newRow = table.insertRow();
+                newRow.insertCell(0).innerText = 'New Row, Cell 1';
+                newRow.insertCell(1).innerText = 'New Row, Cell 2';
+            });
+
+            // Drag and Drop
+            const draggable = document.getElementById('draggable');
+            const droppable = document.getElementById('droppable');
+
+            draggable.addEventListener('dragstart', function (e) {
+                e.dataTransfer.setData('text/plain', null);
+            });
+
+            droppable.addEventListener('dragover', function (e) {
+                e.preventDefault();
+            });
+
+            droppable.addEventListener('drop', function (e) {
+                e.preventDefault();
+                droppable.innerText = 'Dropped!';
+            });
+
+            // Shadow DOM
+            const shadowHost = document.getElementById('shadow-host');
+            const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+            shadowRoot.innerHTML = '<p>Shadow DOM Content</p>';
+        </script>
+    </body>
+</html>
