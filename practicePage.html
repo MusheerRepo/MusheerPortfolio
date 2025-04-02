@@ -5,6 +5,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Selenium Practice Page</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(135deg, rgb(156, 12, 70), rgb(21, 24, 154), #333, #ddd);
+                background-size: 400% 400%;
+                animation: gradientAnimation 15s ease infinite;
+                color: #fff;
+            }
+
+            @keyframes gradientAnimation {
+                0%,
+                100% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+            }
+
+            h1,
+            h2 {
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            section {
+                margin: 20px;
+                padding: 20px;
+                border-radius: 10px;
+                background-color: rgba(255, 255, 255, 0.1);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
             .tooltip {
                 display: none;
                 position: absolute;
@@ -12,9 +46,92 @@
                 color: #fff;
                 padding: 5px;
                 border-radius: 5px;
+                transition: opacity 0.3s;
             }
+
             .hover-element:hover + .tooltip {
                 display: block;
+                opacity: 1;
+            }
+
+            button,
+            input[type='button'],
+            input[type='submit'],
+            a {
+                display: inline-block;
+                padding: 10px 20px;
+                margin: 10px 0;
+                border: none;
+                border-radius: 5px;
+                background-color: #007bff;
+                color: #fff;
+                text-decoration: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            button:hover,
+            input[type='button']:hover,
+            input[type='submit']:hover,
+            a:hover {
+                background-color: #0056b3;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+            }
+
+            table,
+            th,
+            td {
+                border: 1px solid #ddd;
+            }
+
+            th,
+            td {
+                padding: 12px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #007bff;
+            }
+
+            #drag-drop-container {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            #draggable,
+            #droppable {
+                width: 100px;
+                height: 100px;
+                border: 2px dashed #fff;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            #droppable {
+                border-style: solid;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            #dynamic-content {
+                animation: fadeIn 2s;
             }
         </style>
     </head>
