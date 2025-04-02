@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Selenium Practice Page</title>
+        <title>Automation Practice Page</title>
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -171,8 +171,15 @@
 
             iframe {
                 width: 100%;
-                height: 200px;
+                height: 300px;
                 border: 1px solid #ccc;
+                border-radius: 10px;
+                margin-top: 10px;
+            }
+
+            .frame-container {
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 10px;
             }
         </style>
@@ -209,7 +216,9 @@
         <!-- Buttons -->
         <section>
             <h2>Buttons</h2>
-            <button id="click-button" data-testid="click-button">Click Me</button>
+            <button id="click-button" data-testid="click-button" onclick="alert('Clicked!')">
+                Click Me
+            </button>
             <button
                 id="double-click-button"
                 data-testid="double-click-button"
@@ -259,11 +268,42 @@
         <!-- Frames -->
         <section>
             <h2>Frames</h2>
-            <iframe
-                id="parent-frame"
-                data-testid="parent-frame"
-                srcdoc="<p>Parent Frame</p><iframe srcdoc='<p>Child Frame</p>'></iframe>"
-            ></iframe>
+            <div class="frame-container">
+                <iframe
+                    title="parent-frame"
+                    id="parent-frame"
+                    data-testid="parent-frame"
+                    srcdoc="
+                <html>
+                    <head>
+                        <style>
+                            body { font-family: Arial, sans-serif; color: #fff; background-color: #333; padding: 20px; }
+                            .frame-content { padding: 20px; }
+                            .frame-content input { padding: 10px; width: calc(100% - 22px); margin-top: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class='frame-content'>
+                            <p id='frame-text'>Parent Frame</p>
+                            <input type='text' id='frame-input' placeholder='Type something...' />
+                            <iframe id='child-frame' srcdoc='<p id=\'child-frame-text\'>Child Frame</p>'></iframe>
+                        </div>
+                        <script>
+                            document.addEventListener('click', function() {
+                                document.getElementById('frame-text').innerText = 'Parent Frame Clicked!';
+                                document.getElementById('frame-text').style.color = 'red';
+                            });
+
+                            document.getElementById('child-frame').addEventListener('click', function() {
+                                document.getElementById('child-frame-text').innerText = 'Child Frame Clicked!';
+                                document.getElementById('child-frame-text').style.color = 'yellow';
+                            });
+                        </script>
+                    </body>
+                </html>
+            "
+                </iframe>
+            </div>
         </section>
 
         <!-- New Windows/Tabs -->
