@@ -286,6 +286,20 @@
                 border-radius: 5px;
             }
 
+            .dropdown-item {
+                background-color: #eee;
+                color: #444;
+                cursor: pointer;
+                padding: 18px;
+                width: 100%;
+                border: none;
+                text-align: left;
+                outline: none;
+                font-size: 15px;
+                transition: 0.4s;
+                border-radius: 5px;
+            }
+
             .active,
             .accordion:hover {
                 background-color: #ccc;
@@ -298,9 +312,44 @@
                 overflow: hidden;
             }
 
-            .scrollable-dropdown {
-                max-height: 100px;
+            .custom-dropdown {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+            }
+
+            .dropdown-toggle {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.2);
+                color: #fff;
+                cursor: pointer;
+                font-size: 1em;
+            }
+
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                max-height: 150px;
                 overflow-y: auto;
+                z-index: 1000;
+            }
+
+            .dropdown-menu div {
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            .dropdown-menu div:hover {
+                background-color: #f1f1f1;
             }
 
             .pagination {
@@ -376,79 +425,65 @@
             </button>
         </section>
 
-        <!-- Dropdowns -->
+        <!-- Custom Dropdown -->
         <section>
-            <h2>Dropdowns</h2>
-            <label for="single-select">Single Select:</label>
-            <select id="single-select" data-testid="single-select">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option></select
-            ><br />
-
-            <label for="multi-select">Multi Select:</label>
-            <select id="multi-select" multiple data-testid="multi-select">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-            </select>
-
-            <label for="scrollable-dropdown">Scrollable Dropdown:</label>
-            <select
-                id="scrollable-dropdown"
-                class="scrollable-dropdown"
-                data-testid="scrollable-dropdown"
-            >
-                <!-- Generating 50 options -->
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-                <option value="option4">Option 4</option>
-                <option value="option5">Option 5</option>
-                <option value="option6">Option 6</option>
-                <option value="option7">Option 7</option>
-                <option value="option8">Option 8</option>
-                <option value="option9">Option 9</option>
-                <option value="option10">Option 10</option>
-                <option value="option11">Option 11</option>
-                <option value="option12">Option 12</option>
-                <option value="option13">Option 13</option>
-                <option value="option14">Option 14</option>
-                <option value="option15">Option 15</option>
-                <option value="option16">Option 16</option>
-                <option value="option17">Option 17</option>
-                <option value="option18">Option 18</option>
-                <option value="option19">Option 19</option>
-                <option value="option20">Option 20</option>
-                <option value="option21">Option 21</option>
-                <option value="option22">Option 22</option>
-                <option value="option23">Option 23</option>
-                <option value="option24">Option 24</option>
-                <option value="option25">Option 25</option>
-                <option value="option26">Option 26</option>
-                <option value="option27">Option 27</option>
-                <option value="option28">Option 28</option>
-                <option value="option29">Option 29</option>
-                <option value="option30">Option 30</option>
-                <option value="option31">Option 31</option>
-                <option value="option32">Option 32</option>
-                <option value="option33">Option 33</option>
-                <option value="option34">Option 34</option>
-                <option value="option35">Option 35</option>
-                <option value="option36">Option 36</option>
-                <option value="option37">Option 37</option>
-                <option value="option38">Option 38</option>
-                <option value="option39">Option 39</option>
-                <option value="option40">Option 40</option>
-                <option value="option41">Option 41</option>
-                <option value="option42">Option 42</option>
-                <option value="option43">Option 43</option>
-                <option value="option44">Option 44</option>
-                <option value="option45">Option 45</option>
-                <option value="option46">Option 46</option>
-                <option value="option47">Option 47</option>
-                <option value="option48">Option 48</option>
-                <option value="option49">Option 49</option>
-                <option value="option50">Option 50</option>
-            </select>
+            <h2>Custom Dropdown</h2>
+            <div class="custom-dropdown">
+                <div class="dropdown-toggle" id="dropdown-toggle">Select an option</div>
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <!-- Generating 50 options -->
+                    <div class="dropdown-item" data-value="option1">Option 1</div>
+                    <div class="dropdown-item" data-value="option2">Option 2</div>
+                    <div class="dropdown-item" data-value="option3">Option 3</div>
+                    <div class="dropdown-item" data-value="option4">Option 4</div>
+                    <div class="dropdown-item" data-value="option5">Option 5</div>
+                    <div class="dropdown-item" data-value="option6">Option 6</div>
+                    <div class="dropdown-item" data-value="option7">Option 7</div>
+                    <div class="dropdown-item" data-value="option8">Option 8</div>
+                    <div class="dropdown-item" data-value="option9">Option 9</div>
+                    <div class="dropdown-item" data-value="option10">Option 10</div>
+                    <div class="dropdown-item" data-value="option11">Option 11</div>
+                    <div class="dropdown-item" data-value="option12">Option 12</div>
+                    <div class="dropdown-item" data-value="option13">Option 13</div>
+                    <div class="dropdown-item" data-value="option14">Option 14</div>
+                    <div class="dropdown-item" data-value="option15">Option 15</div>
+                    <div class="dropdown-item" data-value="option16">Option 16</div>
+                    <div class="dropdown-item" data-value="option17">Option 17</div>
+                    <div class="dropdown-item" data-value="option18">Option 18</div>
+                    <div class="dropdown-item" data-value="option19">Option 19</div>
+                    <div class="dropdown-item" data-value="option20">Option 20</div>
+                    <div class="dropdown-item" data-value="option21">Option 21</div>
+                    <div class="dropdown-item" data-value="option22">Option 22</div>
+                    <div class="dropdown-item" data-value="option23">Option 23</div>
+                    <div class="dropdown-item" data-value="option24">Option 24</div>
+                    <div class="dropdown-item" data-value="option25">Option 25</div>
+                    <div class="dropdown-item" data-value="option26">Option 26</div>
+                    <div class="dropdown-item" data-value="option27">Option 27</div>
+                    <div class="dropdown-item" data-value="option28">Option 28</div>
+                    <div class="dropdown-item" data-value="option29">Option 29</div>
+                    <div class="dropdown-item" data-value="option30">Option 30</div>
+                    <div class="dropdown-item" data-value="option31">Option 31</div>
+                    <div class="dropdown-item" data-value="option32">Option 32</div>
+                    <div class="dropdown-item" data-value="option33">Option 33</div>
+                    <div class="dropdown-item" data-value="option34">Option 34</div>
+                    <div class="dropdown-item" data-value="option35">Option 35</div>
+                    <div class="dropdown-item" data-value="option36">Option 36</div>
+                    <div class="dropdown-item" data-value="option37">Option 37</div>
+                    <div class="dropdown-item" data-value="option38">Option 38</div>
+                    <div class="dropdown-item" data-value="option39">Option 39</div>
+                    <div class="dropdown-item" data-value="option40">Option 40</div>
+                    <div class="dropdown-item" data-value="option41">Option 41</div>
+                    <div class="dropdown-item" data-value="option42">Option 42</div>
+                    <div class="dropdown-item" data-value="option43">Option 43</div>
+                    <div class="dropdown-item" data-value="option44">Option 44</div>
+                    <div class="dropdown-item" data-value="option45">Option 45</div>
+                    <div class="dropdown-item" data-value="option46">Option 46</div>
+                    <div class="dropdown-item" data-value="option47">Option 47</div>
+                    <div class="dropdown-item" data-value="option48">Option 48</div>
+                    <div class="dropdown-item" data-value="option49">Option 49</div>
+                    <div class="dropdown-item" data-value="option50">Option 50</div>
+                </div>
+            </div>
         </section>
 
         <!-- Alerts -->
@@ -847,6 +882,29 @@
             function openPopupWindow() {
                 window.open('https://www.example.com', 'PopupWindow', 'width=600,height=400');
             }
+
+            // Custom Dropdown
+            const dropdownToggle = document.getElementById('dropdown-toggle');
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            const dropdownItems = dropdownMenu.getElementsByClassName('dropdown-item');
+
+            dropdownToggle.addEventListener('click', function () {
+                dropdownMenu.style.display =
+                    dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            for (let item of dropdownItems) {
+                item.addEventListener('click', function () {
+                    dropdownToggle.textContent = this.textContent;
+                    dropdownMenu.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', function (event) {
+                if (!event.target.matches('#dropdown-toggle')) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
         </script>
     </body>
 </html>
