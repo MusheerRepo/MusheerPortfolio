@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Automation Practice Page</title>
+        <title>Selenium Practice Page</title>
         <style>
             body {
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: linear-gradient(135deg, rgb(156, 12, 70), rgb(21, 24, 154), #333, #ddd);
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
                 background-size: 400% 400%;
                 animation: gradientAnimation 15s ease infinite;
                 color: #fff;
@@ -65,7 +65,9 @@
             input[type='text'],
             input[type='password'],
             textarea,
-            select {
+            select,
+            input[type='date'],
+            input[type='range'] {
                 width: calc(100% - 22px);
                 padding: 10px;
                 margin: 10px 0;
@@ -182,6 +184,115 @@
                 background-color: rgba(255, 255, 255, 0.1);
                 border-radius: 10px;
             }
+
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .modal-content {
+                background-color: #333;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                border-radius: 10px;
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #fff;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .tab {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
+                border-radius: 10px;
+            }
+
+            .tab button {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+
+            .tab button:hover {
+                background-color: #ddd;
+            }
+
+            .tab button.active {
+                background-color: #ccc;
+            }
+
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border-top: none;
+            }
+
+            #progress-bar {
+                width: 100%;
+                background-color: #ddd;
+                border-radius: 5px;
+            }
+
+            #progress-bar div {
+                width: 0%;
+                height: 30px;
+                background-color: #4caf50;
+                border-radius: 5px;
+                text-align: center;
+                line-height: 30px;
+                color: white;
+            }
+
+            .accordion {
+                background-color: #eee;
+                color: #444;
+                cursor: pointer;
+                padding: 18px;
+                width: 100%;
+                border: none;
+                text-align: left;
+                outline: none;
+                font-size: 15px;
+                transition: 0.4s;
+                border-radius: 5px;
+            }
+
+            .active,
+            .accordion:hover {
+                background-color: #ccc;
+            }
+
+            .panel {
+                padding: 0 18px;
+                display: none;
+                background-color: white;
+                overflow: hidden;
+            }
         </style>
     </head>
     <body>
@@ -270,7 +381,6 @@
             <h2>Frames</h2>
             <div class="frame-container">
                 <iframe
-                    title="parent-frame"
                     id="parent-frame"
                     data-testid="parent-frame"
                     srcdoc="
@@ -302,7 +412,7 @@
                     </body>
                 </html>
             "
-                </iframe>
+                ></iframe>
             </div>
         </section>
 
@@ -398,6 +508,85 @@
             </svg>
         </section>
 
+        <!-- AJAX Loader -->
+        <section>
+            <h2>AJAX Loader</h2>
+            <button id="ajax-button" data-testid="ajax-button">Load Data</button>
+            <div id="ajax-content" data-testid="ajax-content"></div>
+        </section>
+
+        <!-- Modal Dialog -->
+        <section>
+            <h2>Modal Dialog</h2>
+            <button id="modal-button" data-testid="modal-button">Open Modal</button>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>This is a modal dialog.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabs -->
+        <section>
+            <h2>Tabs</h2>
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">
+                    Tab 1
+                </button>
+                <button class="tablinks" onclick="openTab(event, 'Tab2')">Tab 2</button>
+            </div>
+            <div id="Tab1" class="tabcontent">
+                <h3>Tab 1</h3>
+                <p>Content for Tab 1.</p>
+            </div>
+            <div id="Tab2" class="tabcontent">
+                <h3>Tab 2</h3>
+                <p>Content for Tab 2.</p>
+            </div>
+        </section>
+
+        <!-- Progress Bar -->
+        <section>
+            <h2>Progress Bar</h2>
+            <div id="progress-bar">
+                <div></div>
+            </div>
+            <button id="start-progress" data-testid="start-progress">Start Progress</button>
+        </section>
+
+        <!-- Date Picker -->
+        <section>
+            <h2>Date Picker</h2>
+            <input type="date" id="date-picker" data-testid="date-picker" placeholder="Input" />
+        </section>
+
+        <!-- Sliders -->
+        <section>
+            <h2>Sliders</h2>
+            <input
+                type="range"
+                id="slider"
+                data-testid="slider"
+                min="0"
+                max="100"
+                placeholder="Input"
+            />
+        </section>
+
+        <!-- Accordion -->
+        <section>
+            <h2>Accordion</h2>
+            <button class="accordion">Section 1</button>
+            <div class="panel">
+                <p>Content for Section 1.</p>
+            </div>
+            <button class="accordion">Section 2</button>
+            <div class="panel">
+                <p>Content for Section 2.</p>
+            </div>
+        </section>
+
         <script>
             // Dynamic Content
             document
@@ -436,6 +625,79 @@
             const shadowHost = document.getElementById('shadow-host');
             const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
             shadowRoot.innerHTML = '<p>Shadow DOM Content</p>';
+
+            // AJAX Loader
+            document.getElementById('ajax-button').addEventListener('click', function () {
+                setTimeout(function () {
+                    document.getElementById('ajax-content').innerText = 'Data Loaded via AJAX!';
+                }, 2000);
+            });
+
+            // Modal Dialog
+            const modal = document.getElementById('myModal');
+            const modalButton = document.getElementById('modal-button');
+            const closeButton = document.getElementsByClassName('close')[0];
+
+            modalButton.onclick = function () {
+                modal.style.display = 'block';
+            };
+
+            closeButton.onclick = function () {
+                modal.style.display = 'none';
+            };
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            // Tabs
+            document.getElementsByClassName('tablinks')[0].click();
+
+            function openTab(evt, tabName) {
+                const tabcontent = document.getElementsByClassName('tabcontent');
+                for (let i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = 'none';
+                }
+
+                const tablinks = document.getElementsByClassName('tablinks');
+                for (let i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(' active', '');
+                }
+
+                document.getElementById(tabName).style.display = 'block';
+                evt.currentTarget.className += ' active';
+            }
+
+            // Progress Bar
+            document.getElementById('start-progress').addEventListener('click', function () {
+                let width = 0;
+                const progressBar = document.getElementById('progress-bar').querySelector('div');
+                const interval = setInterval(function () {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                    } else {
+                        width++;
+                        progressBar.style.width = width + '%';
+                        progressBar.innerText = width + '%';
+                    }
+                }, 50);
+            });
+
+            // Accordion
+            const acc = document.getElementsByClassName('accordion');
+            for (let i = 0; i < acc.length; i++) {
+                acc[i].addEventListener('click', function () {
+                    this.classList.toggle('active');
+                    const panel = this.nextElementSibling;
+                    if (panel.style.display === 'block') {
+                        panel.style.display = 'none';
+                    } else {
+                        panel.style.display = 'block';
+                    }
+                });
+            }
         </script>
     </body>
 </html>
