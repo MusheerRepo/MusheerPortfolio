@@ -9,7 +9,7 @@
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: linear-gradient(135deg, #6a11cb, #2575fc);
+                background: linear-gradient(135deg, rgb(156, 12, 70), rgb(21, 24, 154), #333, #ddd);
                 background-size: 400% 400%;
                 animation: gradientAnimation 15s ease infinite;
                 color: #fff;
@@ -397,31 +397,40 @@
 
                     <label for="textarea">Textarea:</label>
                     <textarea id="textarea" data-testid="textarea"></textarea><br />
-
-                    <label for="checkbox">Checkbox:</label>
-                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 1<br />
-                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 2<br />
-                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 3<br />
-
-                    <label for="radio-button">Radio Button:</label>
-                    <input
-                        type="radio"
-                        id="radio-button"
-                        name="radio-group"
-                        data-testid="radio-button"
-                    /><br />
-                    <input
-                        type="radio"
-                        id="radio-button"
-                        name="radio-group"
-                        data-testid="radio-button"
-                    /><br />
-                    <input
-                        type="radio"
-                        id="radio-button"
-                        name="radio-group"
-                        data-testid="radio-button"
-                    /><br />
+                    <div>
+                        <label for="checkbox">Checkbox:</label>
+                        <section>
+                            <input type="checkbox" id="checkbox" data-testid="checkbox" />CheckBox
+                            1<br />
+                            <input type="checkbox" id="checkbox" data-testid="checkbox" />CheckBox
+                            2<br />
+                            <input type="checkbox" id="checkbox" data-testid="checkbox" />CheckBox
+                            3<br />
+                        </section>
+                    </div>
+                    <div>
+                        <label for="radio-button">Radio Button:</label>
+                        <section>
+                            <input
+                                type="radio"
+                                id="radio-button"
+                                name="radio-group"
+                                data-testid="radio-button"
+                            />Radio 1<br />
+                            <input
+                                type="radio"
+                                id="radio-button"
+                                name="radio-group"
+                                data-testid="radio-button"
+                            />Radio 2<br />
+                            <input
+                                type="radio"
+                                id="radio-button"
+                                name="radio-group"
+                                data-testid="radio-button"
+                            />Radio 3<br />
+                        </section>
+                    </div>
                 </form>
             </section>
 
@@ -857,6 +866,7 @@
                 const interval = setInterval(function () {
                     if (width >= 100) {
                         clearInterval(interval);
+                        progressBar.innerText = 'Completed';
                     } else {
                         width++;
                         progressBar.style.width = width + '%';
