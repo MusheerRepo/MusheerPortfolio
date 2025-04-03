@@ -35,11 +35,19 @@
                 font-weight: 300;
             }
 
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
             section {
-                margin: 20px auto;
+                flex: 1 1 calc(33.333% - 40px);
+                margin: 10px;
                 padding: 20px;
-                max-width: 600px;
-                width: 100%;
+                max-width: calc(33.333% - 40px);
                 border-radius: 15px;
                 background-color: rgba(255, 255, 255, 0.1);
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -376,373 +384,388 @@
     </head>
     <body>
         <h1>Selenium Practice Page</h1>
+        <div class="container">
+            <!-- Basic Form Elements -->
+            <section>
+                <h2>Basic Form Elements</h2>
+                <form>
+                    <label for="text-input">Text Input:</label>
+                    <input type="text" id="text-input" data-testid="text-input" /><br />
 
-        <!-- Basic Form Elements -->
-        <section>
-            <h2>Basic Form Elements</h2>
-            <form>
-                <label for="text-input">Text Input:</label>
-                <input type="text" id="text-input" data-testid="text-input" /><br />
+                    <label for="password-input">Password:</label>
+                    <input type="password" id="password-input" data-testid="password-input" /><br />
 
-                <label for="password-input">Password:</label>
-                <input type="password" id="password-input" data-testid="password-input" /><br />
+                    <label for="textarea">Textarea:</label>
+                    <textarea id="textarea" data-testid="textarea"></textarea><br />
 
-                <label for="textarea">Textarea:</label>
-                <textarea id="textarea" data-testid="textarea"></textarea><br />
+                    <label for="checkbox">Checkbox:</label>
+                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 1<br />
+                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 2<br />
+                    <input type="checkbox" id="checkbox" data-testid="checkbox" />Box 3<br />
 
-                <label for="checkbox">Checkbox:</label>
-                <input type="checkbox" id="checkbox" data-testid="checkbox" /><br />
+                    <label for="radio-button">Radio Button:</label>
+                    <input
+                        type="radio"
+                        id="radio-button"
+                        name="radio-group"
+                        data-testid="radio-button"
+                    /><br />
+                    <input
+                        type="radio"
+                        id="radio-button"
+                        name="radio-group"
+                        data-testid="radio-button"
+                    /><br />
+                    <input
+                        type="radio"
+                        id="radio-button"
+                        name="radio-group"
+                        data-testid="radio-button"
+                    /><br />
+                </form>
+            </section>
 
-                <label for="radio-button">Radio Button:</label>
-                <input
-                    type="radio"
-                    id="radio-button"
-                    name="radio-group"
-                    data-testid="radio-button"
-                /><br />
-            </form>
-        </section>
-
-        <!-- Buttons -->
-        <section>
-            <h2>Buttons</h2>
-            <button id="click-button" data-testid="click-button" onclick="alert('Clicked!')">
-                Click Me
-            </button>
-            <button
-                id="double-click-button"
-                data-testid="double-click-button"
-                ondblclick="alert('Double Clicked!')"
-            >
-                Double Click Me
-            </button>
-            <button
-                id="right-click-button"
-                data-testid="right-click-button"
-                oncontextmenu="alert('Right Clicked!'); return false;"
-            >
-                Right Click Me
-            </button>
-        </section>
-
-        <!-- Custom Dropdown -->
-        <section>
-            <h2>Custom Dropdown</h2>
-            <div class="custom-dropdown">
-                <div class="dropdown-toggle" id="dropdown-toggle">Select an option</div>
-                <div class="dropdown-menu" id="dropdown-menu">
-                    <!-- Generating 50 options -->
-                    <div class="dropdown-item" data-value="option1">Option 1</div>
-                    <div class="dropdown-item" data-value="option2">Option 2</div>
-                    <div class="dropdown-item" data-value="option3">Option 3</div>
-                    <div class="dropdown-item" data-value="option4">Option 4</div>
-                    <div class="dropdown-item" data-value="option5">Option 5</div>
-                    <div class="dropdown-item" data-value="option6">Option 6</div>
-                    <div class="dropdown-item" data-value="option7">Option 7</div>
-                    <div class="dropdown-item" data-value="option8">Option 8</div>
-                    <div class="dropdown-item" data-value="option9">Option 9</div>
-                    <div class="dropdown-item" data-value="option10">Option 10</div>
-                    <div class="dropdown-item" data-value="option11">Option 11</div>
-                    <div class="dropdown-item" data-value="option12">Option 12</div>
-                    <div class="dropdown-item" data-value="option13">Option 13</div>
-                    <div class="dropdown-item" data-value="option14">Option 14</div>
-                    <div class="dropdown-item" data-value="option15">Option 15</div>
-                    <div class="dropdown-item" data-value="option16">Option 16</div>
-                    <div class="dropdown-item" data-value="option17">Option 17</div>
-                    <div class="dropdown-item" data-value="option18">Option 18</div>
-                    <div class="dropdown-item" data-value="option19">Option 19</div>
-                    <div class="dropdown-item" data-value="option20">Option 20</div>
-                    <div class="dropdown-item" data-value="option21">Option 21</div>
-                    <div class="dropdown-item" data-value="option22">Option 22</div>
-                    <div class="dropdown-item" data-value="option23">Option 23</div>
-                    <div class="dropdown-item" data-value="option24">Option 24</div>
-                    <div class="dropdown-item" data-value="option25">Option 25</div>
-                    <div class="dropdown-item" data-value="option26">Option 26</div>
-                    <div class="dropdown-item" data-value="option27">Option 27</div>
-                    <div class="dropdown-item" data-value="option28">Option 28</div>
-                    <div class="dropdown-item" data-value="option29">Option 29</div>
-                    <div class="dropdown-item" data-value="option30">Option 30</div>
-                    <div class="dropdown-item" data-value="option31">Option 31</div>
-                    <div class="dropdown-item" data-value="option32">Option 32</div>
-                    <div class="dropdown-item" data-value="option33">Option 33</div>
-                    <div class="dropdown-item" data-value="option34">Option 34</div>
-                    <div class="dropdown-item" data-value="option35">Option 35</div>
-                    <div class="dropdown-item" data-value="option36">Option 36</div>
-                    <div class="dropdown-item" data-value="option37">Option 37</div>
-                    <div class="dropdown-item" data-value="option38">Option 38</div>
-                    <div class="dropdown-item" data-value="option39">Option 39</div>
-                    <div class="dropdown-item" data-value="option40">Option 40</div>
-                    <div class="dropdown-item" data-value="option41">Option 41</div>
-                    <div class="dropdown-item" data-value="option42">Option 42</div>
-                    <div class="dropdown-item" data-value="option43">Option 43</div>
-                    <div class="dropdown-item" data-value="option44">Option 44</div>
-                    <div class="dropdown-item" data-value="option45">Option 45</div>
-                    <div class="dropdown-item" data-value="option46">Option 46</div>
-                    <div class="dropdown-item" data-value="option47">Option 47</div>
-                    <div class="dropdown-item" data-value="option48">Option 48</div>
-                    <div class="dropdown-item" data-value="option49">Option 49</div>
-                    <div class="dropdown-item" data-value="option50">Option 50</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Alerts -->
-        <section>
-            <h2>Alerts</h2>
-            <button onclick="alert('Simple Alert!')" data-testid="simple-alert">
-                Simple Alert
-            </button>
-            <button onclick="confirm('Confirmation Alert!')" data-testid="confirm-alert">
-                Confirmation Alert
-            </button>
-            <button onclick="prompt('Prompt Alert!')" data-testid="prompt-alert">
-                Prompt Alert
-            </button>
-        </section>
-
-        <!-- Frames -->
-        <section>
-            <h2>Frames</h2>
-            <div class="frame-container">
-                <iframe
-                    id="parent-frame"
-                    data-testid="parent-frame"
-                    srcdoc="
-                <html>
-                    <head>
-                        <style>
-                            body { font-family: Arial, sans-serif; color: #fff; background-color: #333; padding: 20px; }
-                            .frame-content { padding: 20px; }
-                            .frame-content input { padding: 10px; width: calc(100% - 22px); margin-top: 10px; }
-                        </style>
-                    </head>
-                    <body>
-                        <div class='frame-content'>
-                            <p id='frame-text'>Parent Frame</p>
-                            <input type='text' id='frame-input' placeholder='Type something...' />
-                            <iframe id='child-frame' srcdoc='<p id=\'child-frame-text\'>Child Frame</p>'></iframe>
-                        </div>
-                        <script>
-                            document.addEventListener('click', function() {
-                                document.getElementById('frame-text').innerText = 'Parent Frame Clicked!';
-                                document.getElementById('frame-text').style.color = 'red';
-                            });
-
-                            document.getElementById('child-frame').addEventListener('click', function() {
-                                document.getElementById('child-frame-text').innerText = 'Child Frame Clicked!';
-                                document.getElementById('child-frame-text').style.color = 'yellow';
-                            });
-                        </script>
-                    </body>
-                </html>
-            "
-                ></iframe>
-            </div>
-        </section>
-
-        <!-- New Windows/Tabs -->
-        <section>
-            <h2>New Windows/Tabs</h2>
-            <a href="https://www.example.com" target="_blank" data-testid="new-window"
-                >Open in New Window</a
-            >
-            <button onclick="openPopupWindow()" data-testid="popup-window">
-                Open Popup Window
-            </button>
-        </section>
-
-        <!-- Dynamic Content -->
-        <section>
-            <h2>Dynamic Content</h2>
-            <button id="dynamic-content-button" data-testid="dynamic-content-button">
-                Load Content
-            </button>
-            <div id="dynamic-content" data-testid="dynamic-content"></div>
-        </section>
-
-        <!-- Web Tables -->
-        <section>
-            <h2>Web Tables</h2>
-            <table id="static-table" data-testid="static-table">
-                <tr>
-                    <th>Header 1</th>
-                    <th>Header 2</th>
-                </tr>
-                <tr>
-                    <td>Row 1, Cell 1</td>
-                    <td>Row 1, Cell 2</td>
-                </tr>
-            </table>
-            <button id="add-row-button" data-testid="add-row-button">Add Row</button>
-        </section>
-
-        <!-- Mouse Actions -->
-        <section>
-            <h2>Mouse Actions</h2>
-            <div class="hover-element" data-testid="hover-element">Hover over me</div>
-            <div class="tooltip">Tooltip Text</div>
-
-            <div id="drag-drop-container" data-testid="drag-drop-container">
-                <div id="draggable" draggable="true">Drag Me</div>
-                <div id="droppable">Drop Here</div>
-            </div>
-        </section>
-
-        <!-- File Upload -->
-        <section>
-            <h2>File Upload</h2>
-            <input type="file" id="file-upload" data-testid="file-upload" />
-        </section>
-
-        <!-- File Download -->
-        <section>
-            <h2>File Download</h2>
-            <a
-                href="data:text/plain;charset=utf-8,Hello%20World"
-                download="example.txt"
-                data-testid="file-download"
-                >Download Text File</a
-            >
-        </section>
-
-        <!-- Disabled & Hidden Elements -->
-        <section>
-            <h2>Disabled & Hidden Elements</h2>
-            <input type="text" disabled data-testid="disabled-input" />
-            <input type="text" style="display: none" data-testid="hidden-input" />
-        </section>
-
-        <!-- Advanced Dropdowns -->
-        <section>
-            <h2>Advanced Dropdowns</h2>
-            <select id="advanced-dropdown" data-testid="advanced-dropdown">
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-            </select>
-        </section>
-
-        <!-- Shadow DOM -->
-        <section>
-            <h2>Shadow DOM</h2>
-            <div id="shadow-host" data-testid="shadow-host"></div>
-        </section>
-
-        <!-- SVG Element -->
-        <section>
-            <h2>SVG Element</h2>
-            <svg width="100" height="100" data-testid="svg-element">
-                <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-            </svg>
-        </section>
-
-        <!-- AJAX Loader -->
-        <section>
-            <h2>AJAX Loader</h2>
-            <button id="ajax-button" data-testid="ajax-button">Load Data</button>
-            <div id="ajax-content" data-testid="ajax-content"></div>
-        </section>
-
-        <!-- Modal Dialog -->
-        <section>
-            <h2>Modal Dialog</h2>
-            <button id="modal-button" data-testid="modal-button">Open Modal</button>
-            <div id="myModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>This is a modal dialog.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tabs -->
-        <section>
-            <h2>Tabs</h2>
-            <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">
-                    Tab 1
+            <!-- Buttons -->
+            <section>
+                <h2>Buttons</h2>
+                <button id="click-button" data-testid="click-button" onclick="alert('Clicked!')">
+                    Click Me
                 </button>
-                <button class="tablinks" onclick="openTab(event, 'Tab2')">Tab 2</button>
-            </div>
-            <div id="Tab1" class="tabcontent">
-                <h3>Tab 1</h3>
-                <p>Content for Tab 1.</p>
-            </div>
-            <div id="Tab2" class="tabcontent">
-                <h3>Tab 2</h3>
-                <p>Content for Tab 2.</p>
-            </div>
-        </section>
+                <button
+                    id="double-click-button"
+                    data-testid="double-click-button"
+                    ondblclick="alert('Double Clicked!')"
+                >
+                    Double Click Me
+                </button>
+                <button
+                    id="right-click-button"
+                    data-testid="right-click-button"
+                    oncontextmenu="alert('Right Clicked!'); return false;"
+                >
+                    Right Click Me
+                </button>
+            </section>
 
-        <!-- Progress Bar -->
-        <section>
-            <h2>Progress Bar</h2>
-            <div id="progress-bar">
-                <div></div>
-            </div>
-            <button id="start-progress" data-testid="start-progress">Start Progress</button>
-        </section>
+            <!-- Custom Dropdown -->
+            <section>
+                <h2>Custom Dropdown</h2>
+                <div class="custom-dropdown">
+                    <div class="dropdown-toggle" id="dropdown-toggle">Select an option</div>
+                    <div class="dropdown-menu" id="dropdown-menu">
+                        <!-- Generating 50 options -->
+                        <div class="dropdown-item" data-value="option1">Option 1</div>
+                        <div class="dropdown-item" data-value="option2">Option 2</div>
+                        <div class="dropdown-item" data-value="option3">Option 3</div>
+                        <div class="dropdown-item" data-value="option4">Option 4</div>
+                        <div class="dropdown-item" data-value="option5">Option 5</div>
+                        <div class="dropdown-item" data-value="option6">Option 6</div>
+                        <div class="dropdown-item" data-value="option7">Option 7</div>
+                        <div class="dropdown-item" data-value="option8">Option 8</div>
+                        <div class="dropdown-item" data-value="option9">Option 9</div>
+                        <div class="dropdown-item" data-value="option10">Option 10</div>
+                        <div class="dropdown-item" data-value="option11">Option 11</div>
+                        <div class="dropdown-item" data-value="option12">Option 12</div>
+                        <div class="dropdown-item" data-value="option13">Option 13</div>
+                        <div class="dropdown-item" data-value="option14">Option 14</div>
+                        <div class="dropdown-item" data-value="option15">Option 15</div>
+                        <div class="dropdown-item" data-value="option16">Option 16</div>
+                        <div class="dropdown-item" data-value="option17">Option 17</div>
+                        <div class="dropdown-item" data-value="option18">Option 18</div>
+                        <div class="dropdown-item" data-value="option19">Option 19</div>
+                        <div class="dropdown-item" data-value="option20">Option 20</div>
+                        <div class="dropdown-item" data-value="option21">Option 21</div>
+                        <div class="dropdown-item" data-value="option22">Option 22</div>
+                        <div class="dropdown-item" data-value="option23">Option 23</div>
+                        <div class="dropdown-item" data-value="option24">Option 24</div>
+                        <div class="dropdown-item" data-value="option25">Option 25</div>
+                        <div class="dropdown-item" data-value="option26">Option 26</div>
+                        <div class="dropdown-item" data-value="option27">Option 27</div>
+                        <div class="dropdown-item" data-value="option28">Option 28</div>
+                        <div class="dropdown-item" data-value="option29">Option 29</div>
+                        <div class="dropdown-item" data-value="option30">Option 30</div>
+                        <div class="dropdown-item" data-value="option31">Option 31</div>
+                        <div class="dropdown-item" data-value="option32">Option 32</div>
+                        <div class="dropdown-item" data-value="option33">Option 33</div>
+                        <div class="dropdown-item" data-value="option34">Option 34</div>
+                        <div class="dropdown-item" data-value="option35">Option 35</div>
+                        <div class="dropdown-item" data-value="option36">Option 36</div>
+                        <div class="dropdown-item" data-value="option37">Option 37</div>
+                        <div class="dropdown-item" data-value="option38">Option 38</div>
+                        <div class="dropdown-item" data-value="option39">Option 39</div>
+                        <div class="dropdown-item" data-value="option40">Option 40</div>
+                        <div class="dropdown-item" data-value="option41">Option 41</div>
+                        <div class="dropdown-item" data-value="option42">Option 42</div>
+                        <div class="dropdown-item" data-value="option43">Option 43</div>
+                        <div class="dropdown-item" data-value="option44">Option 44</div>
+                        <div class="dropdown-item" data-value="option45">Option 45</div>
+                        <div class="dropdown-item" data-value="option46">Option 46</div>
+                        <div class="dropdown-item" data-value="option47">Option 47</div>
+                        <div class="dropdown-item" data-value="option48">Option 48</div>
+                        <div class="dropdown-item" data-value="option49">Option 49</div>
+                        <div class="dropdown-item" data-value="option50">Option 50</div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Date Picker -->
-        <section>
-            <h2>Date Picker</h2>
-            <input type="date" id="date-picker" data-testid="date-picker" placeholder="Input" />
-        </section>
+            <!-- Alerts -->
+            <section>
+                <h2>Alerts</h2>
+                <button onclick="alert('Simple Alert!')" data-testid="simple-alert">
+                    Simple Alert
+                </button>
+                <button onclick="confirm('Confirmation Alert!')" data-testid="confirm-alert">
+                    Confirmation Alert
+                </button>
+                <button onclick="prompt('Prompt Alert!')" data-testid="prompt-alert">
+                    Prompt Alert
+                </button>
+            </section>
 
-        <!-- Sliders -->
-        <section>
-            <h2>Sliders</h2>
-            <input
-                type="range"
-                id="slider"
-                data-testid="slider"
-                min="0"
-                max="100"
-                placeholder="Input"
-            />
-        </section>
+            <!-- Frames -->
+            <section>
+                <h2>Frames</h2>
+                <div class="frame-container">
+                    <iframe
+                        id="parent-frame"
+                        data-testid="parent-frame"
+                        srcdoc="
+                    <html>
+                        <head>
+                            <style>
+                                body { font-family: Arial, sans-serif; color: #fff; background-color: #333; padding: 20px; }
+                                .frame-content { padding: 20px; }
+                                .frame-content input { padding: 10px; width: calc(100% - 22px); margin-top: 10px; }
+                            </style>
+                        </head>
+                        <body>
+                            <div class='frame-content'>
+                                <p id='frame-text'>Parent Frame</p>
+                                <input type='text' id='frame-input' placeholder='Type something...' />
+                                <iframe id='child-frame' srcdoc='<p id=\'child-frame-text\'>Child Frame</p>'></iframe>
+                            </div>
+                            <script>
+                                document.addEventListener('click', function() {
+                                    document.getElementById('frame-text').innerText = 'Parent Frame Clicked!';
+                                    document.getElementById('frame-text').style.color = 'red';
+                                });
 
-        <!-- Accordion -->
-        <section>
-            <h2>Accordion</h2>
-            <button class="accordion">Section 1</button>
-            <div class="panel">
-                <p>Content for Section 1.</p>
-            </div>
-            <button class="accordion">Section 2</button>
-            <div class="panel">
-                <p>Content for Section 2.</p>
-            </div>
-        </section>
+                                document.getElementById('child-frame').addEventListener('click', function() {
+                                    document.getElementById('child-frame-text').innerText = 'Child Frame Clicked!';
+                                    document.getElementById('child-frame-text').style.color = 'yellow';
+                                });
+                            </script>
+                        </body>
+                    </html>
+                "
+                    ></iframe>
+                </div>
+            </section>
 
-        <!-- Form -->
-        <section>
-            <h2>Form</h2>
-            <form id="sample-form" data-testid="sample-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required /><br />
+            <!-- New Windows/Tabs -->
+            <section>
+                <h2>New Windows/Tabs</h2>
+                <a href="https://www.example.com" target="_blank" data-testid="new-window"
+                    >Open in New Window</a
+                >
+                <button onclick="openPopupWindow()" data-testid="popup-window">
+                    Open Popup Window
+                </button>
+            </section>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required /><br />
+            <!-- Dynamic Content -->
+            <section>
+                <h2>Dynamic Content</h2>
+                <button id="dynamic-content-button" data-testid="dynamic-content-button">
+                    Load Content
+                </button>
+                <div id="dynamic-content" data-testid="dynamic-content"></div>
+            </section>
 
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea><br />
+            <!-- Web Tables -->
+            <section>
+                <h2>Web Tables</h2>
+                <table id="static-table" data-testid="static-table">
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                    </tr>
+                    <tr>
+                        <td>Row 1, Cell 1</td>
+                        <td>Row 1, Cell 2</td>
+                    </tr>
+                </table>
+                <button id="add-row-button" data-testid="add-row-button">Add Row</button>
+            </section>
 
-                <input type="submit" value="Submit" />
-            </form>
-        </section>
+            <!-- Mouse Actions -->
+            <section>
+                <h2>Mouse Actions</h2>
+                <div class="hover-element" data-testid="hover-element">Hover over me</div>
+                <div class="tooltip">Tooltip Text</div>
 
-        <!-- Pagination -->
-        <section>
-            <h2>Pagination</h2>
-            <div class="pagination" id="pagination" data-testid="pagination">
-                <button class="page-button" onclick="changePage(1)">1</button>
-                <button class="page-button" onclick="changePage(2)">2</button>
-                <button class="page-button" onclick="changePage(3)">3</button>
-            </div>
-            <div id="page-content">
-                <p>Content for Page 1.</p>
-            </div>
-        </section>
+                <div id="drag-drop-container" data-testid="drag-drop-container">
+                    <div id="draggable" draggable="true">Drag Me</div>
+                    <div id="droppable">Drop Here</div>
+                </div>
+            </section>
+
+            <!-- File Upload -->
+            <section>
+                <h2>File Upload</h2>
+                <input type="file" id="file-upload" data-testid="file-upload" />
+            </section>
+
+            <!-- File Download -->
+            <section>
+                <h2>File Download</h2>
+                <a
+                    href="data:text/plain;charset=utf-8,Hello%20World"
+                    download="example.txt"
+                    data-testid="file-download"
+                    >Download Text File</a
+                >
+            </section>
+
+            <!-- Disabled & Hidden Elements -->
+            <section>
+                <h2>Disabled & Hidden Elements</h2>
+                <input type="text" disabled data-testid="disabled-input" />
+                <input type="text" style="display: none" data-testid="hidden-input" />
+            </section>
+
+            <!-- Advanced Dropdowns -->
+            <section>
+                <h2>Advanced Dropdowns</h2>
+                <select id="advanced-dropdown" data-testid="advanced-dropdown">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                </select>
+            </section>
+
+            <!-- Shadow DOM -->
+            <section>
+                <h2>Shadow DOM</h2>
+                <div id="shadow-host" data-testid="shadow-host"></div>
+            </section>
+
+            <!-- SVG Element -->
+            <section>
+                <h2>SVG Element</h2>
+                <svg width="100" height="100" data-testid="svg-element">
+                    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+                </svg>
+            </section>
+
+            <!-- AJAX Loader -->
+            <section>
+                <h2>AJAX Loader</h2>
+                <button id="ajax-button" data-testid="ajax-button">Load Data</button>
+                <div id="ajax-content" data-testid="ajax-content"></div>
+            </section>
+
+            <!-- Modal Dialog -->
+            <section>
+                <h2>Modal Dialog</h2>
+                <button id="modal-button" data-testid="modal-button">Open Modal</button>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>This is a modal dialog.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabs -->
+            <section>
+                <h2>Tabs</h2>
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Tab1')" id="defaultOpen">
+                        Tab 1
+                    </button>
+                    <button class="tablinks" onclick="openTab(event, 'Tab2')">Tab 2</button>
+                </div>
+                <div id="Tab1" class="tabcontent">
+                    <h3>Tab 1</h3>
+                    <p>Content for Tab 1.</p>
+                </div>
+                <div id="Tab2" class="tabcontent">
+                    <h3>Tab 2</h3>
+                    <p>Content for Tab 2.</p>
+                </div>
+            </section>
+
+            <!-- Progress Bar -->
+            <section>
+                <h2>Progress Bar</h2>
+                <div id="progress-bar">
+                    <div></div>
+                </div>
+                <button id="start-progress" data-testid="start-progress">Start Progress</button>
+            </section>
+
+            <!-- Date Picker -->
+            <section>
+                <h2>Date Picker</h2>
+                <input type="date" id="date-picker" data-testid="date-picker" placeholder="Input" />
+            </section>
+
+            <!-- Sliders -->
+            <section>
+                <h2>Sliders</h2>
+                <input
+                    type="range"
+                    id="slider"
+                    data-testid="slider"
+                    min="0"
+                    max="100"
+                    placeholder="Input"
+                />
+            </section>
+
+            <!-- Accordion -->
+            <section>
+                <h2>Accordion</h2>
+                <button class="accordion">Section 1</button>
+                <div class="panel">
+                    <p>Content for Section 1.</p>
+                </div>
+                <button class="accordion">Section 2</button>
+                <div class="panel">
+                    <p>Content for Section 2.</p>
+                </div>
+            </section>
+
+            <!-- Form -->
+            <section>
+                <h2>Form</h2>
+                <form id="sample-form" data-testid="sample-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required /><br />
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required /><br />
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea><br />
+
+                    <input type="submit" value="Submit" />
+                </form>
+            </section>
+
+            <!-- Pagination -->
+            <section>
+                <h2>Pagination</h2>
+                <div class="pagination" id="pagination" data-testid="pagination">
+                    <button class="page-button" onclick="changePage(1)">1</button>
+                    <button class="page-button" onclick="changePage(2)">2</button>
+                    <button class="page-button" onclick="changePage(3)">3</button>
+                </div>
+                <div id="page-content">
+                    <p>Content for Page 1.</p>
+                </div>
+            </section>
+        </div>
 
         <script>
             // Dynamic Content
