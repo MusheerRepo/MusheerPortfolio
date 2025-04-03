@@ -13,6 +13,9 @@
                 background-size: 400% 400%;
                 animation: gradientAnimation 15s ease infinite;
                 color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             @keyframes gradientAnimation {
@@ -36,6 +39,7 @@
                 margin: 20px auto;
                 padding: 20px;
                 max-width: 600px;
+                width: 100%;
                 border-radius: 15px;
                 background-color: rgba(255, 255, 255, 0.1);
                 box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -293,6 +297,32 @@
                 background-color: white;
                 overflow: hidden;
             }
+
+            .scrollable-dropdown {
+                max-height: 100px;
+                overflow-y: auto;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .pagination button {
+                margin: 0 5px;
+                padding: 10px 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                color: #007bff;
+                cursor: pointer;
+            }
+
+            .pagination button.active {
+                background-color: #007bff;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
@@ -360,6 +390,65 @@
                 <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
             </select>
+
+            <label for="scrollable-dropdown">Scrollable Dropdown:</label>
+            <select
+                id="scrollable-dropdown"
+                class="scrollable-dropdown"
+                data-testid="scrollable-dropdown"
+            >
+                <!-- Generating 50 options -->
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+                <option value="option4">Option 4</option>
+                <option value="option5">Option 5</option>
+                <option value="option6">Option 6</option>
+                <option value="option7">Option 7</option>
+                <option value="option8">Option 8</option>
+                <option value="option9">Option 9</option>
+                <option value="option10">Option 10</option>
+                <option value="option11">Option 11</option>
+                <option value="option12">Option 12</option>
+                <option value="option13">Option 13</option>
+                <option value="option14">Option 14</option>
+                <option value="option15">Option 15</option>
+                <option value="option16">Option 16</option>
+                <option value="option17">Option 17</option>
+                <option value="option18">Option 18</option>
+                <option value="option19">Option 19</option>
+                <option value="option20">Option 20</option>
+                <option value="option21">Option 21</option>
+                <option value="option22">Option 22</option>
+                <option value="option23">Option 23</option>
+                <option value="option24">Option 24</option>
+                <option value="option25">Option 25</option>
+                <option value="option26">Option 26</option>
+                <option value="option27">Option 27</option>
+                <option value="option28">Option 28</option>
+                <option value="option29">Option 29</option>
+                <option value="option30">Option 30</option>
+                <option value="option31">Option 31</option>
+                <option value="option32">Option 32</option>
+                <option value="option33">Option 33</option>
+                <option value="option34">Option 34</option>
+                <option value="option35">Option 35</option>
+                <option value="option36">Option 36</option>
+                <option value="option37">Option 37</option>
+                <option value="option38">Option 38</option>
+                <option value="option39">Option 39</option>
+                <option value="option40">Option 40</option>
+                <option value="option41">Option 41</option>
+                <option value="option42">Option 42</option>
+                <option value="option43">Option 43</option>
+                <option value="option44">Option 44</option>
+                <option value="option45">Option 45</option>
+                <option value="option46">Option 46</option>
+                <option value="option47">Option 47</option>
+                <option value="option48">Option 48</option>
+                <option value="option49">Option 49</option>
+                <option value="option50">Option 50</option>
+            </select>
         </section>
 
         <!-- Alerts -->
@@ -422,6 +511,9 @@
             <a href="https://www.example.com" target="_blank" data-testid="new-window"
                 >Open in New Window</a
             >
+            <button onclick="openPopupWindow()" data-testid="popup-window">
+                Open Popup Window
+            </button>
         </section>
 
         <!-- Dynamic Content -->
@@ -587,6 +679,36 @@
             </div>
         </section>
 
+        <!-- Form -->
+        <section>
+            <h2>Form</h2>
+            <form id="sample-form" data-testid="sample-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required /><br />
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required /><br />
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea><br />
+
+                <input type="submit" value="Submit" />
+            </form>
+        </section>
+
+        <!-- Pagination -->
+        <section>
+            <h2>Pagination</h2>
+            <div class="pagination" id="pagination" data-testid="pagination">
+                <button class="page-button" onclick="changePage(1)">1</button>
+                <button class="page-button" onclick="changePage(2)">2</button>
+                <button class="page-button" onclick="changePage(3)">3</button>
+            </div>
+            <div id="page-content">
+                <p>Content for Page 1.</p>
+            </div>
+        </section>
+
         <script>
             // Dynamic Content
             document
@@ -697,6 +819,33 @@
                         panel.style.display = 'block';
                     }
                 });
+            }
+
+            // Form Submission
+            document.getElementById('sample-form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                alert('Form Submitted!');
+            });
+
+            // Pagination
+            function changePage(pageNumber) {
+                const pageButtons = document.getElementsByClassName('page-button');
+                for (let i = 0; i < pageButtons.length; i++) {
+                    pageButtons[i].classList.remove('active');
+                }
+                document
+                    .querySelector(`.page-button:nth-child(${pageNumber})`)
+                    .classList.add('active');
+                document.getElementById('page-content').innerText =
+                    `Content for Page ${pageNumber}.`;
+            }
+
+            // Initialize first page as active
+            document.querySelector('.page-button:nth-child(1)').classList.add('active');
+
+            // Popup Window
+            function openPopupWindow() {
+                window.open('https://www.example.com', 'PopupWindow', 'width=600,height=400');
             }
         </script>
     </body>
