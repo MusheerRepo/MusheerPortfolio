@@ -5,10 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
-        "testAllure": "USE_ALLURE=1 tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
+        "testAllure": "USE_ALLURE=1 tsx node_modules/@cucumber/cucumber/bin/cucumber.js; npm run allure",
         "allure": "allure generate allure-results --clean -o allure-reports; allure serve allure-results"
     },
-    "author": "",
+    "author": "Musheer",
     "license": "ISC",
     "dependencies": {
         "@cucumber/cucumber": "^11.2.0",

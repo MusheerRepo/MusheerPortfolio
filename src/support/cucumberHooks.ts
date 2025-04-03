@@ -53,35 +53,31 @@ Before(async function (this: ICustomWorld, scenario) {
     logger = new Logger(this, config.logger(this.testName));
     this.logger = logger;
 
-    this.logger?.log(`Scenario Started: ${this.testName}`);
+    this.logger.log(`Scenario Started: ${this.testName}`);
 
     // Initalizing page
     this.page = page;
-    this.PageObjects = new PageObjects(page, this.logger);
     this.pageActions = new PageActions(page, this.logger);
+    this.pageObjects = new PageObjects(page, this.logger);
 
     // Navigating to baseURL
     this.page.get(config.baseURL);
 });
 
-After(async function (this: ICustomWorld) {
+After(async function (this: ICustomWorld, { result }) {
     try {
-        this.logger?.log(`Scenario Finished: ${this.testName}`);
+        this.getLogger().log(`Scenario Finished: ${this.testName}`);
         // Attaching screenshots on failure
-        if (this.feature?.result?.status?.toString().toLowerCase() != 'passed') {
-            const screenshotBuffer = await this.pageActions?.takeScreenshot(
+        if (result?.status.toString().toLowerCase() != 'passed') {
+            const screenshotBuffer = await this.getPageActions().takeScreenshot(
                 `${this.testName}Failure`,
             );
             if (screenshotBuffer) {
+                //Attaching to allure
                 await this.allure?.attachmentFromPath('Failure screenshot', screenshotBuffer, {
                     contentType: 'image/png',
                     fileExtension: '.png',
                 });
-                fs.writeFileSync(
-                    path.join(config.outputDir, `${this.testName} failure Screenshot`),
-                    screenshotBuffer,
-                    'base64',
-                );
             }
         }
 
@@ -106,10 +102,10 @@ After(async function (this: ICustomWorld) {
             });
         }
     } catch (e) {
-        this.logger?.log(`Error attaching reports: ${String(e)}`, 'error');
+        this.getLogger().log(`Error attaching reports: ${String(e)}`, 'error');
     }
 });
 
 AfterAll(async function () {
-    await page?.quit();
+    await page.quit();
 });

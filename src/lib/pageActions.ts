@@ -33,7 +33,7 @@ export class PageActions {
     }
 
     async refreshPage(): Promise<void> {
-        this.logger?.log('Refreshing the page');
+        this.logger.log('Refreshing the page');
         await this.page.navigate().refresh();
         await this.waitForPageToLoad();
     }

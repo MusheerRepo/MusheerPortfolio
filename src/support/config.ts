@@ -7,11 +7,10 @@ let downloadDir = path.join(process.cwd(), '/tmp/downloads');
 let outputDir = path.join(process.cwd(), 'outputDir');
 let logsDir = `${outputDir}/logs`;
 
-// Config of tests
 export const config = {
     //browser config
     browserName: process.env.BROWSER || 'Chrome',
-    baseURL: process.env.URL || 'https://example.cypress.io/',
+    baseURL: process.env.URL || 'http://127.0.0.1:5501/practicePage.html',
 
     // timeouts
     implicit: 10000,

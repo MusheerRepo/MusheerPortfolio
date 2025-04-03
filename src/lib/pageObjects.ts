@@ -2,6 +2,7 @@ import { config } from '../support/config';
 import { Logger } from './logger';
 import { By, Locator, WebDriver, WebElement, until } from 'selenium-webdriver';
 
+// This class is a base class for all querying operations
 export class PageObjects {
     private page: WebDriver;
     private logger: Logger;
@@ -11,7 +12,7 @@ export class PageObjects {
         this.logger = logger;
     }
 
-    // ✅ Wait until the page is fully loaded
+    // Waiting for element to be stable, attached and visible
     async waitForElement(
         locator: Locator,
         defaultTimeout = config.waitTimeout,
