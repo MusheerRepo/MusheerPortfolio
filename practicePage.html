@@ -316,7 +316,7 @@
             .panel {
                 padding: 0 18px;
                 display: none;
-                background-color: white;
+                background-color: rgb(0, 0, 0);
                 overflow: hidden;
             }
 
@@ -379,6 +379,36 @@
             .pagination button.active {
                 background-color: #007bff;
                 color: #fff;
+            }
+
+            /* New styles for the focus and blur section with 3D effect */
+            .focus-blur-section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 200px;
+                position: relative;
+                perspective: 1000px;
+            }
+
+            .focus-blur-section div {
+                width: 100px;
+                height: 100px;
+                background: linear-gradient(145deg, #ff6f61, #ffcc5c);
+                border-radius: 50%;
+                box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+                transition:
+                    background 0.3s,
+                    border-radius 0.3s,
+                    transform 0.3s;
+                transform-style: preserve-3d;
+            }
+
+            .focus-blur-section div:focus {
+                background: linear-gradient(145deg, #6a82fb, #fc5c7d);
+                border-radius: 0;
+                transform: rotateX(20deg) rotateY(20deg);
+                outline: none;
             }
         </style>
     </head>
@@ -774,6 +804,14 @@
                     <p>Content for Page 1.</p>
                 </div>
             </section>
+
+            <!-- Focus and Blur Section -->
+            <section>
+                <h2>Focus and Blur</h2>
+                <div class="focus-blur-section" tabindex="0">
+                    <div></div>
+                </div>
+            </section>
         </div>
 
         <script>
@@ -937,6 +975,20 @@
                 if (!event.target.matches('#dropdown-toggle')) {
                     dropdownMenu.style.display = 'none';
                 }
+            });
+
+            // Focus and Blur Section
+            const focusBlurSection = document.querySelector('.focus-blur-section div');
+            focusBlurSection.addEventListener('focus', function () {
+                this.style.background = 'linear-gradient(145deg, #6a82fb, #fc5c7d)';
+                this.style.borderRadius = '0';
+                this.style.transform = 'rotateX(20deg) rotateY(20deg)';
+            });
+
+            focusBlurSection.addEventListener('blur', function () {
+                this.style.background = 'linear-gradient(145deg, #ff6f61, #ffcc5c)';
+                this.style.borderRadius = '50%';
+                this.style.transform = 'rotateX(0deg) rotateY(0deg)';
             });
         </script>
     </body>

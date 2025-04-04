@@ -9,6 +9,7 @@ import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
+import { Ensure } from '../lib/ensure';
 
 let logger: Logger;
 let page: WebDriver;
@@ -57,8 +58,9 @@ Before(async function (this: ICustomWorld, scenario) {
 
     // Initalizing page
     this.page = page;
-    this.pageActions = new PageActions(page, this.logger);
-    this.pageObjects = new PageObjects(page, this.logger);
+    this.pageActions = new PageActions(page, logger);
+    this.pageObjects = new PageObjects(page, logger);
+    this.ensure = new Ensure(page, logger);
 
     // Navigating to baseURL
     this.page.get(config.baseURL);

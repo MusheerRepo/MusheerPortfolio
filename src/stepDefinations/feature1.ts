@@ -11,7 +11,8 @@ Given('User is on base url', () => {
     // User is already on base url
 });
 
-When('user query for showdow element', async function (this: ICustomWorld) {
+When('enter name {string}', async function (this: ICustomWorld, string: string) {
     const homePage = new HomePage(this);
-    await homePage.writeName();
+    await homePage.writeName(string);
+    await homePage.assertText(string);
 });

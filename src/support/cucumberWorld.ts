@@ -10,6 +10,7 @@ import { PageObjects } from '../lib/pageObjects';
 import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
+import { Ensure } from '../lib/ensure';
 
 export interface ICustomWorld extends World {
     page?: WebDriver;
@@ -19,12 +20,14 @@ export interface ICustomWorld extends World {
     testName?: string;
     feature?: ITestCaseHookParameter;
     allure?: AllureCucumberTestRuntime;
+    ensure?: Ensure;
 
     // Getter methods
     getPage: () => WebDriver;
     getPageActions: () => PageActions;
     getPageObjects: () => PageObjects;
     getLogger: () => Logger;
+    getEnsure: () => Ensure;
 }
 
 export class CustomWorld extends World implements ICustomWorld {
@@ -36,6 +39,7 @@ export class CustomWorld extends World implements ICustomWorld {
     feature?: ITestCaseHookParameter;
     allure?: AllureCucumberTestRuntime;
     step?: ITestStepHookParameter;
+    ensure?: Ensure;
 
     constructor(options: IWorldOptions) {
         super(options);
@@ -67,6 +71,13 @@ export class CustomWorld extends World implements ICustomWorld {
             throw new Error('Logger accessed before initialization!');
         }
         return this.logger;
+    }
+
+    public getEnsure(): Ensure {
+        if (!this.ensure) {
+            throw new Error('Ensure accessed before initialization!');
+        }
+        return this.ensure;
     }
 }
 
