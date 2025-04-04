@@ -5,9 +5,9 @@ import { By, locateWith } from 'selenium-webdriver';
 import * as fs from 'fs';
 import path from 'path';
 import { Ensure } from '../lib/ensure';
-import { HomePage } from '../lib/pageObjects/homePage';
+import { HomePage } from '../lib/pageObjects/practicePage';
 
-Given('User is on base url', () => {
+Given('the user is on the practice page', () => {
     // User is already on base url
 });
 
