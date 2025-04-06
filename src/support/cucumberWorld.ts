@@ -11,6 +11,8 @@ import { PageActions } from '../lib/pageActions';
 import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 import { Ensure } from '../lib/ensure';
+import { HomePage } from '../pageObjects/homePage';
+import { string } from 'yargs';
 
 export interface ICustomWorld extends World {
     page?: WebDriver;
@@ -21,6 +23,7 @@ export interface ICustomWorld extends World {
     feature?: ITestCaseHookParameter;
     allure?: AllureCucumberTestRuntime;
     ensure?: Ensure;
+    data: { [key: string]: string };
 
     // Getter methods
     getPage: () => WebDriver;
@@ -28,6 +31,7 @@ export interface ICustomWorld extends World {
     getPageObjects: () => PageObjects;
     getLogger: () => Logger;
     getEnsure: () => Ensure;
+    getPages: () => { homePage: HomePage };
 }
 
 export class CustomWorld extends World implements ICustomWorld {
@@ -40,6 +44,7 @@ export class CustomWorld extends World implements ICustomWorld {
     allure?: AllureCucumberTestRuntime;
     step?: ITestStepHookParameter;
     ensure?: Ensure;
+    data: { [key: string]: string } = {};
 
     constructor(options: IWorldOptions) {
         super(options);
@@ -78,6 +83,12 @@ export class CustomWorld extends World implements ICustomWorld {
             throw new Error('Ensure accessed before initialization!');
         }
         return this.ensure;
+    }
+
+    public getPages() {
+        return {
+            homePage: new HomePage(this),
+        };
     }
 }
 

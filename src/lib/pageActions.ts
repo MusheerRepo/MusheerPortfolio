@@ -276,6 +276,18 @@ export class PageActions {
         }
     }
 
+    async getAlertText(): Promise<string> {
+        try {
+            this.logger.log('Fetching alert text');
+            const text = await this.page.switchTo().alert().getText();
+            this.logger.log('Fetched alert text successfully' + text);
+            return text;
+        } catch (error: any) {
+            this.logger.log('Failed to accept alert: ' + error.message);
+            throw error;
+        }
+    }
+
     async dismissAlert(): Promise<void> {
         try {
             this.logger.log('Dismissing alert');

@@ -1,18 +1,21 @@
-import { Given, When } from '@cucumber/cucumber';
-import { CustomWorld, ICustomWorld } from '../support/cucumberWorld';
-import { config } from '../support/config';
-import { By, locateWith } from 'selenium-webdriver';
-import * as fs from 'fs';
-import path from 'path';
-import { Ensure } from '../lib/ensure';
-import { HomePage } from '../lib/pageObjects/practicePage';
+import { Given, Then, When } from '@cucumber/cucumber';
+import { ICustomWorld } from '../support/cucumberWorld';
 
 Given('the user is on the practice page', () => {
     // User is already on base url
 });
 
-When('enter name {string}', async function (this: ICustomWorld, string: string) {
-    const homePage = new HomePage(this);
-    await homePage.writeName(string);
-    await homePage.assertText(string);
+When('the user fills out the form with valid data', async function (this: ICustomWorld) {
+    await this.getPages().homePage.enterFormDetails();
 });
+
+When('the user clicks the submit button', async function (this: ICustomWorld) {
+    await this.getPages().homePage.theUserClicksTheSubmitButton();
+});
+
+Then(
+    'a success message {string} should be displayed',
+    async function (this: ICustomWorld, value: string) {
+        await this.getPages().homePage.aSuccessMessageShouldBeDisplayed(value);
+    },
+);

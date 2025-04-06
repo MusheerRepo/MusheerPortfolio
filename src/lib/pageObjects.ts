@@ -12,7 +12,7 @@ export class PageObjects {
         this.logger = logger;
     }
 
-    // Waiting for element to be stable, attached and visible
+    // Waiting for element to be stable, attached and visible and scroll into view
     async waitForElement(
         locator: Locator,
         defaultTimeout = config.waitTimeout,
@@ -40,6 +40,9 @@ export class PageObjects {
                 previousLocation = currentLocation;
                 return isStable;
             }, defaultTimeout);
+
+            // Scroll into view
+            await this.page.executeScript('arguments[0].scrollIntoView(true);', element);
             return element;
         } catch (e) {
             this.logger.log(`Error while waiting for element: ${e}`, 'error');

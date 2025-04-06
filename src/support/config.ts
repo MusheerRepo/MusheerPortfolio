@@ -10,7 +10,7 @@ let logsDir = `${outputDir}/logs`;
 export const config = {
     //browser config
     browserName: process.env.BROWSER || 'Chrome',
-    baseURL: process.env.URL || 'http://127.0.0.1:5501/practicePage.html',
+    baseURL: process.env.URL || 'http://localhost:3000/',
 
     // timeouts
     implicit: 10000,
@@ -25,6 +25,10 @@ export const config = {
     logsDir: logsDir,
     allureResults: path.join(process.cwd(), 'allure-results'),
     allureReports: path.join(process.cwd(), 'allure-reports'),
+    dataDir: path.join(process.cwd(), 'src', 'data'),
+
+    //files
+    details: 'details.xlsx',
 
     // browser option instance
     chromeOptions: () => {
