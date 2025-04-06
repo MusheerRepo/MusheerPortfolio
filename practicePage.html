@@ -594,7 +594,17 @@
                                     document.getElementById('child-frame-text').style.color = 'yellow';
                                 });
                             </script>
-                        </body>
+                        
+<section>
+    <h2>Useful Links</h2>
+    <ul>
+        <li><a href="https://www.example.com">Example Link 1</a></li>
+        <li><a href="https://www.example.org">Example Link 2</a></li>
+        <li><a href="https://www.example.net">Example Link 3</a></li>
+    </ul>
+</section>
+
+</body>
                     </html>
                 "
                     ></iframe>
@@ -808,10 +818,18 @@
             <!-- Focus and Blur Section -->
             <section>
                 <h2>Focus and Blur</h2>
-                <div class="focus-blur-section" tabindex="0">
+                <div class="focus-blur-section" id="focus-blur" tabindex="0">
                     <div></div>
                 </div>
             </section>
+
+            <section>
+                <h2>Links</h2>
+                <div>
+                    <a class="focus-blur-section" id="link" href="https://www.selenium.dev/">Click here</a>
+                </div>
+            </section>
+            
         </div>
 
         <script>
@@ -991,5 +1009,5 @@
                 this.style.transform = 'rotateX(0deg) rotateY(0deg)';
             });
         </script>
-    </body>
+</body>
 </html>
