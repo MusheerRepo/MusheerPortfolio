@@ -12,7 +12,6 @@ import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 import { Ensure } from '../lib/ensure';
 import { HomePage } from '../pageObjects/homePage';
-import { string } from 'yargs';
 
 export interface ICustomWorld extends World {
     page?: WebDriver;

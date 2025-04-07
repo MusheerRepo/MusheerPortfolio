@@ -10,7 +10,7 @@ let logsDir = `${outputDir}/logs`;
 export const config = {
     //browser config
     browserName: process.env.BROWSER || 'Chrome',
-    baseURL: process.env.URL || 'http://localhost:3000/',
+    baseURL: process.env.URL || 'http://localhost:3000/practicePage.html',
 
     // timeouts
     implicit: 10000,

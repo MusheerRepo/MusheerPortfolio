@@ -1,7 +1,10 @@
-#Feature: Alert Handling
+Feature: Alert Handling
 
- #   Scenario: Handle a JavaScript alert
-  #      Given the user is on the practice page
-   #     When the user performs an action that triggers an alert
-    #    Then the alert should be displayed
-     #   And the user should be able to accept or dismiss the alert
+Scenario: Handle a JavaScript alert
+    Given the user is on the practice page
+    When the user performs an action that triggers a "simple" alert
+    Then the user should be able to "accept" the alert
+    When the user performs an action that triggers a "confirm" alert
+    Then the user should be able to "dismiss" the alert
+    When the user performs an action that triggers a "prompt" alert
+    Then the user should be able to enter "Test" and accept the alert

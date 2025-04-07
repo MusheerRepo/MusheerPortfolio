@@ -43,103 +43,131 @@ export class PageObjects {
 
             // Scroll into view
             await this.page.executeScript('arguments[0].scrollIntoView(true);', element);
+            this.logger.log(`Element located and stable: ${locator}`);
             return element;
-        } catch (e) {
-            this.logger.log(`Error while waiting for element: ${e}`, 'error');
+        } catch (error: any) {
+            this.logger.log(`Error while waiting for element: ${error.message}`, 'error');
             throw new Error(`Failed to wait for element: ${locator}`);
         }
     }
 
     // Find element by ID with proper waiting
     async findById(id: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.id(id));
-        this.logger.log(`Element found by ID: ${id}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.id(id));
+            this.logger.log(`Element found by ID: ${id}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(`Failed to find element by ID: ${id}, Error: ${error.message}`);
+            throw error;
+        }
     }
 
     // Find element by Name
     async findByName(name: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.name(name));
-        this.logger.log(`Element found by Name: ${name}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.name(name));
+            this.logger.log(`Element found by Name: ${name}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(`Failed to find element by Name: ${name}, Error: ${error.message}`);
+            throw error;
+        }
     }
 
     // Find element by Class Name
     async findByClassName(className: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.className(className));
-        this.logger.log(`Element found by Class Name: ${className}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.className(className));
+            this.logger.log(`Element found by Class Name: ${className}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find element by Class Name: ${className}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 
     // Find element by CSS Selector
     async findByCss(cssSelector: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.css(cssSelector));
-        this.logger.log(`Element found by CSS Selector: ${cssSelector}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.css(cssSelector));
+            this.logger.log(`Element found by CSS Selector: ${cssSelector}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find element by CSS Selector: ${cssSelector}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 
     // Find element by XPath
     async findByXPath(xpath: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.xpath(xpath));
-        this.logger.log(`Element found by XPath: ${xpath}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.xpath(xpath));
+            this.logger.log(`Element found by XPath: ${xpath}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(`Failed to find element by XPath: ${xpath}, Error: ${error.message}`);
+            throw error;
+        }
     }
 
     // Find element by Link Text
     async findByLinkText(linkText: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.linkText(linkText));
-        this.logger.log(`Element found by Link Text: ${linkText}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.linkText(linkText));
+            this.logger.log(`Element found by Link Text: ${linkText}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find element by Link Text: ${linkText}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 
     // Find element by Partial Link Text
     async findByPartialLinkText(partialText: string): Promise<WebElement> {
-        const element = await this.waitForElement(By.partialLinkText(partialText));
-        this.logger.log(`Element found by Partial Link Text: ${partialText}`);
-        return element;
+        try {
+            const element = await this.waitForElement(By.partialLinkText(partialText));
+            this.logger.log(`Element found by Partial Link Text: ${partialText}`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find element by Partial Link Text: ${partialText}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 
     // Find all matching elements by CSS Selector
     async findAllByCss(cssSelector: string): Promise<WebElement[]> {
-        await this.waitForElement(By.css(cssSelector));
-        this.logger.log(`Found all elements by CSS Selector: ${cssSelector}`);
-        return await this.page.findElements(By.css(cssSelector));
+        try {
+            await this.waitForElement(By.css(cssSelector));
+            this.logger.log(`Found all elements by CSS Selector: ${cssSelector}`);
+            return await this.page.findElements(By.css(cssSelector));
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find all elements by CSS Selector: ${cssSelector}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 
     // Find all matching elements by XPath
     async findAllByXPath(xpath: string): Promise<WebElement[]> {
-        await this.waitForElement(By.xpath(xpath));
-        this.logger.log(`Found all elements by XPath: ${xpath}`);
-        return await this.page.findElements(By.xpath(xpath));
-    }
-
-    // Element Verification
-    async isElementDisplayed(locator: By): Promise<boolean> {
-        this.logger.log(`Checking if element ${locator} is displayed`);
-        return await this.page.findElement(locator).isDisplayed();
-    }
-
-    async isElementEnabled(locator: By): Promise<boolean> {
-        this.logger.log(`Checking if element ${locator} is enabled`);
-        return await this.page.findElement(locator).isEnabled();
-    }
-
-    async isElementSelected(locator: By): Promise<boolean> {
-        this.logger.log(`Checking if element ${locator} is selected`);
-        return await this.page.findElement(locator).isSelected();
-    }
-
-    // Wait Actions
-    async waitForElementVisible(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger.log(`Waiting for element ${locator} to be visible`);
-        return await this.page.wait(until.elementLocated(locator), timeout);
-    }
-
-    async waitForElementClickable(locator: By, timeout: number = 5000): Promise<WebElement> {
-        this.logger.log(`Waiting for element ${locator} to be clickable`);
-        return await this.page.wait(
-            until.elementIsVisible(await this.page.findElement(locator)),
-            timeout,
-        );
+        try {
+            await this.waitForElement(By.xpath(xpath));
+            this.logger.log(`Found all elements by XPath: ${xpath}`);
+            return await this.page.findElements(By.xpath(xpath));
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to find all elements by XPath: ${xpath}, Error: ${error.message}`,
+            );
+            throw error;
+        }
     }
 }

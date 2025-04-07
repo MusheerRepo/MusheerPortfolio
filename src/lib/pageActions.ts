@@ -43,6 +43,18 @@ export class PageActions {
         }
     }
 
+    async getUrl(): Promise<string> {
+        try {
+            this.logger.log(`Fetching URL`);
+            const url = await this.page.getCurrentUrl();
+            this.logger.log(`Fetched URL: ${url}`);
+            return url;
+        } catch (error: any) {
+            this.logger.log(`Failed to fetch current url, Error: ${error.message}`);
+            throw error;
+        }
+    }
+
     async refreshPage(): Promise<void> {
         try {
             this.logger.log('Refreshing the page');
@@ -265,6 +277,18 @@ export class PageActions {
         }
     }
 
+    async switchToNewTab(): Promise<void> {
+        try {
+            this.logger.log('Switching to new tab');
+            const handles = await this.page.getAllWindowHandles();
+            await this.page.switchTo().window(handles[handles.length - 1]);
+            this.logger.log('Switched to new tab successfully');
+        } catch (error: any) {
+            this.logger.log('Failed to switch to new tab: ' + error.message);
+            throw error;
+        }
+    }
+
     async acceptAlert(): Promise<void> {
         try {
             this.logger.log('Accepting alert');
@@ -374,6 +398,153 @@ export class PageActions {
             this.logger.log('Browser logs retrieved successfully');
         } catch (error: any) {
             this.logger.log('Failed to retrieve browser logs: ' + error.message);
+            throw error;
+        }
+    }
+
+    async closeTab(): Promise<void> {
+        try {
+            this.logger.log('Closing current tab');
+            await this.page.close();
+            this.logger.log('Tab closed successfully');
+        } catch (error: any) {
+            this.logger.log('Failed to close tab: ' + error.message);
+            throw error;
+        }
+    }
+
+    // Element Verification
+    async isElementDisplayed(locator: By): Promise<boolean> {
+        try {
+            this.logger.log(`Checking if element ${locator} is displayed`);
+            const element = await this.page.findElement(locator);
+            const isDisplayed = await element.isDisplayed();
+            this.logger.log(`Element ${locator} is displayed: ${isDisplayed}`);
+            return isDisplayed;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to check if element is displayed: ${locator}, Error: ${error.message}`,
+            );
+            throw error;
+        }
+    }
+
+    async isElementEnabled(locator: By): Promise<boolean> {
+        try {
+            this.logger.log(`Checking if element ${locator} is enabled`);
+            const element = await this.page.findElement(locator);
+            const isEnabled = await element.isEnabled();
+            this.logger.log(`Element ${locator} is enabled: ${isEnabled}`);
+            return isEnabled;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to check if element is enabled: ${locator}, Error: ${error.message}`,
+            );
+            throw error;
+        }
+    }
+
+    async isElementSelected(locator: By): Promise<boolean> {
+        try {
+            this.logger.log(`Checking if element ${locator} is selected`);
+            const element = await this.page.findElement(locator);
+            const isSelected = await element.isSelected();
+            this.logger.log(`Element ${locator} is selected: ${isSelected}`);
+            return isSelected;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to check if element is selected: ${locator}, Error: ${error.message}`,
+            );
+            throw error;
+        }
+    }
+
+    // Wait Actions
+    async waitForElementVisible(
+        locator: By,
+        timeout: number = config.waitTimeout,
+    ): Promise<WebElement> {
+        try {
+            this.logger.log(`Waiting for element ${locator} to be visible`);
+            const element = await this.page.wait(until.elementLocated(locator), timeout);
+            await this.page.wait(until.elementIsVisible(element), timeout);
+            this.logger.log(`Element ${locator} is visible`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to wait for element to be visible: ${locator}, Error: ${error.message}`,
+            );
+            throw error;
+        }
+    }
+
+    async waitForElementClickable(
+        locator: By,
+        timeout: number = config.waitTimeout,
+    ): Promise<WebElement> {
+        try {
+            this.logger.log(`Waiting for element ${locator} to be clickable`);
+            const element = await this.page.wait(until.elementLocated(locator), timeout);
+            await this.page.wait(until.elementIsEnabled(element), timeout);
+            this.logger.log(`Element ${locator} is clickable`);
+            return element;
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to wait for element to be clickable: ${locator}, Error: ${error.message}`,
+            );
+            throw error;
+        }
+    }
+
+    // Wait for alert to be present
+    async waitForAlert(timeout = config.waitTimeout): Promise<void> {
+        try {
+            this.logger.log('Waiting for alert to be present...');
+            await this.page.wait(until.alertIsPresent(), timeout);
+            this.logger.log('Alert is present');
+        } catch (error: any) {
+            this.logger.log(`Failed to wait for alert: ${error.message}`);
+            throw error;
+        }
+    }
+
+    // Wait for frame to be available and switch to it
+    async waitForFrameAndSwitch(frameLocator: By, timeout = config.waitTimeout): Promise<void> {
+        try {
+            this.logger.log(`Waiting for frame ${frameLocator} to be available...`);
+            const frame = await this.page.wait(until.ableToSwitchToFrame(frameLocator), timeout);
+            await this.page.switchTo().frame(frame);
+            this.logger.log(`Switched to frame: ${frameLocator}`);
+        } catch (error: any) {
+            this.logger.log(`Failed to wait for frame: ${frameLocator}, Error: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async waitForUrl(url: string, timeout = config.waitTimeout): Promise<void> {
+        try {
+            this.logger.log(`Waiting for url ${url}`);
+            await this.page.wait(until.urlIs(url), timeout);
+            this.logger.log(`Url is : ${url}`);
+        } catch (error: any) {
+            this.logger.log(`Failed to wait until url is ${url}, Error: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async waitForElementTextToBe(
+        element: WebElement,
+        text: string,
+        timeout = config.waitTimeout,
+    ): Promise<void> {
+        try {
+            this.logger.log(`Waiting for element text to be ${text}`);
+            await this.page.wait(until.elementTextIs(element, text), timeout);
+            this.logger.log(`Element text is : ${text}`);
+        } catch (error: any) {
+            this.logger.log(
+                `Failed to wait until element text is ${text}, Error: ${error.message}`,
+            );
             throw error;
         }
     }

@@ -11,6 +11,7 @@ export class HomePage {
     readonly email: string;
     readonly message: string;
     readonly form: string;
+    readonly link: string;
 
     readonly pageActions: PageActions;
     readonly pageObjects: PageObjects;
@@ -22,6 +23,7 @@ export class HomePage {
         this.email = 'email';
         this.message = 'message';
         this.form = 'sample-form';
+        this.link = 'link';
 
         this.world = world;
         this.pageActions = world.getPageActions();
@@ -45,6 +47,34 @@ export class HomePage {
     }
 
     async aSuccessMessageShouldBeDisplayed(value: string) {
+        await this.pageActions.acceptAlert();
         await this.ensure.areEqual(this.world.data['alert text'], value);
+    }
+
+    async theUserClicksALink() {
+        await this.pageActions.clickElement(await this.pageObjects.findById(this.link));
+    }
+
+    async theBrowserShouldNavigateToCorrectPage(value: string) {
+        await this.ensure.areEqual(await this.pageActions.getUrl(), value);
+    }
+
+    async triggerAlert(alertType: string) {
+        await this.pageActions.clickElement(
+            await this.pageObjects.findByXPath(`//*[@data-testid="${alertType}-alert"]`),
+        );
+    }
+
+    async acceptAlert() {
+        await this.pageActions.acceptAlert();
+    }
+
+    async dismissAlert() {
+        await this.pageActions.dismissAlert();
+    }
+
+    async enterAlertText(text: string) {
+        await this.pageActions.enterAlertText(text);
+        await this.pageActions.acceptAlert();
     }
 }
