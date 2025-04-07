@@ -11,9 +11,6 @@ import { Logger } from '../lib/logger';
 import { AllureCucumberTestRuntime } from 'allure-cucumberjs';
 import { Ensure } from '../lib/ensure';
 
-let logger: Logger;
-let page: WebDriver;
-
 setDefaultTimeout(60 * 1000);
 
 BeforeAll(async function () {
@@ -40,9 +37,6 @@ BeforeAll(async function () {
             fs.mkdirSync(directory, { recursive: true });
         }
     });
-
-    //Initializing page
-    page = await createSeleniumDriver(config.browserName);
 });
 
 Before(async function (this: ICustomWorld, scenario) {
@@ -50,17 +44,18 @@ Before(async function (this: ICustomWorld, scenario) {
     this.testName = this.feature.pickle.name;
     this.allure = new AllureCucumberTestRuntime();
 
+    //Initializing page
+    this.page = await createSeleniumDriver(config.browserName);
+
     // Initializing logger
-    logger = new Logger(this, config.logger(this.testName));
-    this.logger = logger;
+    this.logger = new Logger(this, config.logger(this.testName));
 
     this.logger.log(`Scenario Started: ${this.testName}`);
 
     // Initalizing page
-    this.page = page;
-    this.pageActions = new PageActions(page, logger);
-    this.pageObjects = new PageObjects(page, logger);
-    this.ensure = new Ensure(page, logger);
+    this.pageActions = new PageActions(this.page, this.logger);
+    this.pageObjects = new PageObjects(this.page, this.logger);
+    this.ensure = new Ensure(this.page, this.logger);
 
     // Navigating to baseURL
     this.page.get(config.baseURL);
@@ -105,9 +100,11 @@ After(async function (this: ICustomWorld, { result }) {
         }
     } catch (e) {
         this.getLogger().log(`Error attaching reports: ${String(e)}`, 'error');
+    } finally {
+        await this.getPage().quit();
     }
 });
 
 AfterAll(async function () {
-    await page.quit();
+    // Nothing to do here
 });

@@ -17,7 +17,7 @@ const config = {
     ],
     formatOptions: { snippetInterface: 'async-await' },
     worldParameters: getWorldParams(),
-    parallel: 4,
+    parallel: 20,
 };
 
 if (process.env.USE_ALLURE) {

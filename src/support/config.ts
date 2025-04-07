@@ -33,7 +33,7 @@ export const config = {
     // browser option instance
     chromeOptions: () => {
         const options = new chrome.Options();
-        process.env.headless?.toString() == 'true'
+        process.env.HEADLESS?.toString() == 'true'
             ? options.addArguments('--headless')
             : options.addArguments('--window-size=1920,1080');
         options.addArguments('--no-sandbox');
@@ -49,7 +49,7 @@ export const config = {
     },
     firefoxOptions: () => {
         const options = new firefox.Options();
-        process.env.headless?.toString() == 'true'
+        process.env.HEADLESS?.toString() == 'true'
             ? options.addArguments('--headless')
             : options.addArguments('--window-size=1920,1080');
         options.addArguments('--no-sandbox');
