@@ -1,5 +1,6 @@
 import { Browser, Builder, WebDriver } from 'selenium-webdriver';
 import * as fs from 'fs';
+import * as path from 'path';
 import { config } from './config';
 import * as XLSX from 'xlsx';
 
@@ -26,11 +27,17 @@ export async function createSeleniumDriver(browser: string): Promise<WebDriver> 
     return page;
 }
 
-export function readData(path: string) {
-    const fileBuffer = fs.readFileSync(path);
+export function readExcelFile(filePath: string) {
+    const fileBuffer = fs.readFileSync(path.join(config.dataDir, filePath));
     const workbook = XLSX.read(fileBuffer, { type: 'buffer' });
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
     return jsonData as string[][];
+}
+
+export function readTextFile(filePath: string): string {
+    const fullPath = path.join(config.dataDir, filePath);
+    const fileContent = fs.readFileSync(fullPath, 'utf-8');
+    return fileContent;
 }

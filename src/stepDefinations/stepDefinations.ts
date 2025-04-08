@@ -91,3 +91,26 @@ Then(
 When('the user uploads {string} file', async function (this: ICustomWorld, fileName) {
     await this.getPages().homePage.uploadFileOnPage(fileName);
 });
+
+Then(
+    'the file {string} should be uploaded successfully',
+    async function (this: ICustomWorld, fileName: string) {
+        await this.getPages().homePage.assertUploadedFile(fileName);
+    },
+);
+
+When('the user hovers over an element', async function (this: ICustomWorld) {
+    await this.getPages().homePage.mouseOverPointMe();
+});
+
+Then('the dropdown content should be visible', async function (this: ICustomWorld) {
+    await this.getPages().homePage.isDropDownContentVisible();
+});
+
+When('the user reads data from a table', async function (this: ICustomWorld) {
+    await this.getPages().homePage.readTableRow();
+});
+
+Then('the data should be correct', async function (this: ICustomWorld) {
+    await this.getPages().homePage.assetTableRowData();
+});

@@ -134,7 +134,7 @@ export class PageActions {
         try {
             this.logger.log(`Uploading file : ${file}`);
             await element.clear();
-            await element.sendKeys(path.join(process.cwd(), config.dataDir, file));
+            await element.sendKeys(path.join(config.dataDir, file));
             this.logger.log('Uploaded file successfully');
         } catch (error: any) {
             this.logger.log(`Failed to upload file: ${file}, Error: ${error.message}`);
@@ -200,7 +200,7 @@ export class PageActions {
     async hoverOverElement(element: WebElement): Promise<void> {
         try {
             this.logger.log(`Hovering over element: ${element}`);
-            await new Actions(this.page).move({ origin: element }).perform();
+            await this.page.actions().move({ origin: element }).perform();
             this.logger.log('Hovered over element successfully');
         } catch (error: any) {
             this.logger.log(`Failed to hover over element: ${element}, Error: ${error.message}`);
@@ -441,46 +441,43 @@ export class PageActions {
     }
 
     // Element Verification
-    async isElementDisplayed(locator: By): Promise<boolean> {
+    async isElementDisplayed(element: WebElement): Promise<boolean> {
         try {
-            this.logger.log(`Checking if element ${locator} is displayed`);
-            const element = await this.page.findElement(locator);
+            this.logger.log(`Checking if element ${element} is displayed`);
             const isDisplayed = await element.isDisplayed();
-            this.logger.log(`Element ${locator} is displayed: ${isDisplayed}`);
+            this.logger.log(`Element ${element} is displayed: ${isDisplayed}`);
             return isDisplayed;
         } catch (error: any) {
             this.logger.log(
-                `Failed to check if element is displayed: ${locator}, Error: ${error.message}`,
+                `Failed to check if element is displayed: ${element}, Error: ${error.message}`,
             );
             throw error;
         }
     }
 
-    async isElementEnabled(locator: By): Promise<boolean> {
+    async isElementEnabled(element: WebElement): Promise<boolean> {
         try {
-            this.logger.log(`Checking if element ${locator} is enabled`);
-            const element = await this.page.findElement(locator);
+            this.logger.log(`Checking if element ${element} is enabled`);
             const isEnabled = await element.isEnabled();
-            this.logger.log(`Element ${locator} is enabled: ${isEnabled}`);
+            this.logger.log(`Element ${element} is enabled: ${isEnabled}`);
             return isEnabled;
         } catch (error: any) {
             this.logger.log(
-                `Failed to check if element is enabled: ${locator}, Error: ${error.message}`,
+                `Failed to check if element is enabled: ${element}, Error: ${error.message}`,
             );
             throw error;
         }
     }
 
-    async isElementSelected(locator: By): Promise<boolean> {
+    async isElementSelected(element: WebElement): Promise<boolean> {
         try {
-            this.logger.log(`Checking if element ${locator} is selected`);
-            const element = await this.page.findElement(locator);
+            this.logger.log(`Checking if element ${element} is selected`);
             const isSelected = await element.isSelected();
-            this.logger.log(`Element ${locator} is selected: ${isSelected}`);
+            this.logger.log(`Element ${element} is selected: ${isSelected}`);
             return isSelected;
         } catch (error: any) {
             this.logger.log(
-                `Failed to check if element is selected: ${locator}, Error: ${error.message}`,
+                `Failed to check if element is selected: ${element}, Error: ${error.message}`,
             );
             throw error;
         }

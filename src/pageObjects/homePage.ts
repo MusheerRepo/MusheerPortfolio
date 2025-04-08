@@ -2,7 +2,7 @@ import { ICustomWorld } from '../support/cucumberWorld';
 import { PageActions } from '../lib/pageActions';
 import { PageObjects } from '../lib/pageObjects';
 import { Ensure } from '../lib/ensure';
-import { readData } from '../support/utilities';
+import { readExcelFile, readTextFile } from '../support/utilities';
 import { config } from '../support/config';
 import path from 'path';
 
@@ -16,6 +16,10 @@ export class HomePage {
     readonly sundayChkbox: string;
     readonly fileForm: string;
     readonly fileFormInput: string;
+    readonly uploadFileName: string;
+    readonly pointMeBtn: string;
+    readonly dropDownContent: string;
+    readonly tableRow: string;
 
     readonly pageActions: PageActions;
     readonly pageObjects: PageObjects;
@@ -32,6 +36,10 @@ export class HomePage {
         this.countryDrpDwn = 'country';
         this.fileForm = 'singleFileForm';
         this.fileFormInput = 'singleFileInput';
+        this.uploadFileName = "//*[contains(normalize-space(text()), 'nikeepd.doc')]";
+        this.pointMeBtn = "//button[@class='dropbtn']";
+        this.dropDownContent = 'dropdown-content';
+        this.tableRow = "//*[@name='BookTable']//tr";
 
         this.world = world;
         this.pageActions = world.getPageActions();
@@ -44,7 +52,7 @@ export class HomePage {
     }
 
     async enterFormDetails() {
-        this.world.data['readData'] = readData(path.join(config.dataDir, config.details));
+        this.world.data['readData'] = readExcelFile(config.details);
         await this.pageActions.enterText(
             await this.pageObjects.findById(this.formInput),
             this.world.data['readData'][1][1],
@@ -126,5 +134,37 @@ export class HomePage {
             file,
         );
         await this.pageActions.submitForm(await this.pageObjects.findById(this.fileForm));
+    }
+
+    async assertUploadedFile(fileName: string) {
+        await this.ensure.areEqual(
+            await this.pageActions.getInnerText(
+                await this.pageObjects.findByXPath(this.uploadFileName),
+            ),
+            fileName,
+        );
+    }
+
+    async mouseOverPointMe() {
+        await this.pageActions.hoverOverElement(
+            await this.pageObjects.findByXPath(this.pointMeBtn),
+        );
+    }
+
+    async isDropDownContentVisible() {
+        await this.ensure.elementIsDisplayed(
+            await this.pageObjects.findByClassName(this.dropDownContent),
+        );
+    }
+
+    async readTableRow() {
+        this.world.data['tableRow'] = await this.pageActions.getInnerText(
+            await this.pageObjects.findByXPath(this.tableRow),
+        );
+    }
+
+    async assetTableRowData() {
+        const data = readTextFile('textData.txt');
+        await this.ensure.areEqual(this.world.data['tableRow'], data);
     }
 }
