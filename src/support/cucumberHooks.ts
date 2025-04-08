@@ -56,9 +56,6 @@ Before(async function (this: ICustomWorld, scenario) {
     this.pageActions = new PageActions(this.page, this.logger);
     this.pageObjects = new PageObjects(this.page, this.logger);
     this.ensure = new Ensure(this.page, this.logger);
-
-    // Navigating to baseURL
-    this.page.get(config.baseURL);
 });
 
 After(async function (this: ICustomWorld, { result }) {

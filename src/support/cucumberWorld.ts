@@ -22,7 +22,7 @@ export interface ICustomWorld extends World {
     feature?: ITestCaseHookParameter;
     allure?: AllureCucumberTestRuntime;
     ensure?: Ensure;
-    data: { [key: string]: string };
+    data: { [key: string]: any };
 
     // Getter methods
     getPage: () => WebDriver;

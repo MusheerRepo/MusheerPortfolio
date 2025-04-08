@@ -103,6 +103,21 @@ export class PageActions {
         }
     }
 
+    async checkElement(element: WebElement): Promise<void> {
+        try {
+            this.logger.log(`Checking element: ${element}`);
+            const isChecked = await element.isSelected();
+
+            if (!isChecked) {
+                await element.click();
+            }
+            this.logger.log('Element checked successfully');
+        } catch (error: any) {
+            this.logger.log(`Failed to check element: ${element}, Error: ${error.message}`);
+            throw error;
+        }
+    }
+
     async enterText(element: WebElement, text: string): Promise<void> {
         try {
             this.logger.log(`Entering text '${text}' in element: ${element}`);
@@ -111,6 +126,18 @@ export class PageActions {
             this.logger.log('Text entered successfully');
         } catch (error: any) {
             this.logger.log(`Failed to enter text in element: ${element}, Error: ${error.message}`);
+            throw error;
+        }
+    }
+
+    async uploadFile(element: WebElement, file: string): Promise<void> {
+        try {
+            this.logger.log(`Uploading file : ${file}`);
+            await element.clear();
+            await element.sendKeys(path.join(process.cwd(), config.dataDir, file));
+            this.logger.log('Uploaded file successfully');
+        } catch (error: any) {
+            this.logger.log(`Failed to upload file: ${file}, Error: ${error.message}`);
             throw error;
         }
     }
@@ -217,7 +244,7 @@ export class PageActions {
     async dragAndDrop(sourceElement: WebElement, targetElement: WebElement): Promise<void> {
         try {
             this.logger.log(`Dragging element from ${sourceElement} to ${targetElement}`);
-            await new Actions(this.page).dragAndDrop(sourceElement, targetElement).perform();
+            await this.page.actions().dragAndDrop(sourceElement, targetElement).perform();
             this.logger.log('Drag and drop successful');
         } catch (error: any) {
             this.logger.log(

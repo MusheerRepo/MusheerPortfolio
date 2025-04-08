@@ -2,6 +2,7 @@ import * as chrome from 'selenium-webdriver/chrome';
 import * as firefox from 'selenium-webdriver/firefox';
 import winston from 'winston';
 import * as path from 'path';
+import { ITestCaseHookParameter } from '@cucumber/cucumber';
 
 let downloadDir = path.join(process.cwd(), '/tmp/downloads');
 let outputDir = path.join(process.cwd(), 'outputDir');
@@ -10,7 +11,7 @@ let logsDir = `${outputDir}/logs`;
 export const config = {
     //browser config
     browserName: process.env.BROWSER || 'Chrome',
-    baseURL: process.env.URL || 'http://localhost:3000/practicePage.html',
+    baseURL: process.env.URL || 'http://testautomationpractice.blogspot.com/',
 
     // timeouts
     implicit: 10000,

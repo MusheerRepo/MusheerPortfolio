@@ -7,11 +7,15 @@ import { config } from '../support/config';
 import path from 'path';
 
 export class HomePage {
-    readonly name: string;
-    readonly email: string;
-    readonly message: string;
-    readonly form: string;
+    readonly formInput: string;
+    readonly formResult: string;
+    readonly dragElement: string;
+    readonly dropElement: string;
+    readonly countryDrpDwn: string;
     readonly link: string;
+    readonly sundayChkbox: string;
+    readonly fileForm: string;
+    readonly fileFormInput: string;
 
     readonly pageActions: PageActions;
     readonly pageObjects: PageObjects;
@@ -19,11 +23,15 @@ export class HomePage {
     readonly world: ICustomWorld;
 
     constructor(world: ICustomWorld) {
-        this.name = 'name';
-        this.email = 'email';
-        this.message = 'message';
-        this.form = 'sample-form';
-        this.link = 'link';
+        this.formInput = 'Wikipedia1_wikipedia-search-input';
+        this.formResult = 'wikipedia-search-result-link';
+        this.link = 'apple';
+        this.sundayChkbox = 'sunday';
+        this.dragElement = 'draggable';
+        this.dropElement = 'droppable';
+        this.countryDrpDwn = 'country';
+        this.fileForm = 'singleFileForm';
+        this.fileFormInput = 'singleFileInput';
 
         this.world = world;
         this.pageActions = world.getPageActions();
@@ -31,24 +39,27 @@ export class HomePage {
         this.ensure = world.getEnsure();
     }
 
+    async goToBaseUrl() {
+        await this.pageActions.navigateTo(config.baseURL);
+    }
+
     async enterFormDetails() {
-        const data = readData(path.join(config.dataDir, config.details));
-        await this.pageActions.enterText(await this.pageObjects.findById(this.name), data[1][1]);
-        await this.pageActions.enterText(await this.pageObjects.findById(this.email), data[1][3]);
+        this.world.data['readData'] = readData(path.join(config.dataDir, config.details));
         await this.pageActions.enterText(
-            await this.pageObjects.findById(this.message),
-            'This is message',
+            await this.pageObjects.findById(this.formInput),
+            this.world.data['readData'][1][1],
         );
     }
 
     async theUserClicksTheSubmitButton() {
-        await this.pageActions.submitForm(await this.pageObjects.findById(this.form));
-        this.world.data['alert text'] = await this.pageActions.getAlertText();
+        await this.pageActions.submitForm(await this.pageObjects.findById(this.formInput));
     }
 
-    async aSuccessMessageShouldBeDisplayed(value: string) {
-        await this.pageActions.acceptAlert();
-        await this.ensure.areEqual(this.world.data['alert text'], value);
+    async aSuccessMessageShouldBeDisplayed() {
+        await this.ensure.elementHasText(
+            await this.pageObjects.findById(this.formResult),
+            this.world.data['readData'][1][1],
+        );
     }
 
     async theUserClicksALink() {
@@ -60,9 +71,7 @@ export class HomePage {
     }
 
     async triggerAlert(alertType: string) {
-        await this.pageActions.clickElement(
-            await this.pageObjects.findByXPath(`//*[@data-testid="${alertType}-alert"]`),
-        );
+        await this.pageActions.clickElement(await this.pageObjects.findById(`${alertType}Btn`));
     }
 
     async acceptAlert() {
@@ -76,5 +85,46 @@ export class HomePage {
     async enterAlertText(text: string) {
         await this.pageActions.enterAlertText(text);
         await this.pageActions.acceptAlert();
+    }
+
+    async checkTheCheckBox() {
+        await this.pageActions.checkElement(await this.pageObjects.findById(this.sundayChkbox));
+    }
+
+    async isCheckboxChecked() {
+        await this.ensure.elementIsSelected(await this.pageObjects.findById(this.sundayChkbox));
+    }
+
+    async dragAndDropElement() {
+        await this.pageActions.dragAndDrop(
+            await this.pageObjects.findById(this.dragElement),
+            await this.pageObjects.findById(this.dropElement),
+        );
+    }
+
+    async checkDroppedElement(text: string) {
+        await this.ensure.elementHasText(await this.pageObjects.findById(this.dropElement), text);
+    }
+
+    async selectCountryDropDown(option: string) {
+        await this.pageActions.selectByVisibleText(
+            await this.pageObjects.findById(this.countryDrpDwn),
+            option,
+        );
+    }
+
+    async assertCountrySelection(option: string) {
+        await this.ensure.areEqual(
+            await this.pageActions.getInnerText(await this.pageObjects.findByCss('option:checked')),
+            option,
+        );
+    }
+
+    async uploadFileOnPage(file: string) {
+        await this.pageActions.uploadFile(
+            await this.pageObjects.findById(this.fileFormInput),
+            file,
+        );
+        await this.pageActions.submitForm(await this.pageObjects.findById(this.fileForm));
     }
 }
